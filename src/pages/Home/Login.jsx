@@ -39,8 +39,10 @@ const Login = () => {
             "email": id,
             "password": pwd
         })
-        .then(respnse => {
-            Navigate("")
+        .then(response => {
+            localStorage.clear()//로컬 스토리지 비운다
+            localStorage.setItem("accessToken", response.data.accessToken)
+            Navigate("")//로그인 성공 시 홈 화면 이동
         })
         .catch(error => {
             alert("등록된 계정이 아닙니다.")
