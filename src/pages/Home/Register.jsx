@@ -8,6 +8,8 @@ const Register = () => {
     const [name, setName] = useState("")
     const [nick, setNick] = useState("")
     const [email, setEmail] = useState("")
+    const [serverCode, setServerCode] = useState("")
+    const [code, setCode] = useState("")
     const [pwd, setPwd] = useState("")
     const [pwdConfirm, setPwdConfirm] = useState("")
     const [num, setNum] = useState("")
@@ -15,15 +17,17 @@ const Register = () => {
     const [nameMsg, setNameMsg] = useState("")
     const [nickMsg, setNickMsg] = useState("")
     const [emailMsg, setEmailMsg] = useState("")
+    const [codeConfirmMsg, setCodeConfirmMsg] = useState("")
     const [pwdConfirmMsg, setPwdConfirmMsg] = useState("")
     const [numMsg, setNumMsg] = useState("")
 
-    const [isName, setIsName] = useState(false)
-    const [isNick, setIsNick] = useState(false)
-    const [isEmail, setIsEmail] = useState(false)
-    const [ispwd, setIsPwd] = useState(false)
-    const [isConfirm, setIsConfirm] = useState(false)
-    const [isNum , setIsNum] = useState(false)
+    const [isName, setIsName] = useState(true)
+    const [isNick, setIsNick] = useState(true)
+    const [isEmail, setIsEmail] = useState(true)
+    const [isCode, setIsCode] = useState(true)
+    const [ispwd, setIsPwd] = useState(true)
+    const [isConfirm, setIsConfirm] = useState(true)
+    const [isNum , setIsNum] = useState(true)
 
     useEffect(() => {
         setPwdConfirm("")
@@ -75,29 +79,57 @@ const Register = () => {
 
         if(email.length < 2){
             setEmailMsg("이메일을 입력해주세요.")
-            isEmail(true)
+            setIsEmail(true)
         }
         else{
             if(regex.test(email) === false){
                 setEmailMsg("정확한 이메일 형식으로 입력해주세요.")
-                isEmail(true)
+                setIsEmail(true)
             }
             else{
                 axios.get(url)
                 .then((response)=>{
                     if(response.message === '사용 가능한 이메일입니다.'){
                         setEmailMsg("사용 가능한 이메일입니다.")
-                        isEmail(false)
+                        setIsEmail(false)
                     }
                     else{
                         setEmailMsg("이미 존재하는 이메일입니다.")
-                        isEmail(true)
+                        setIsEmail(true)
                     }
                 })
                 .catch((error)=>{
                     console.log("email api error")
                 })
             }
+        }
+    }
+
+    const emailButtonHandler = () => {
+        let url = "http://localhost:8080/auth/users/send-" + email
+
+        axios.get(url)
+        .then(response => {
+            setServerCode(response.data)
+        })
+        .catch(error => {
+            console.log("email auth code error")
+        })
+    }
+
+    const codeHandler = (event) => {
+        setCode(event.target.value)
+    }
+
+    const codeButtonHandler = () => {
+        console.log("in")
+        if(code === serverCode){
+            setCodeConfirmMsg("인증번호 확인이 완료되었습니다")
+            setIsCode(false)
+        }
+        else{
+            setCodeConfirmMsg("발급된 인증번호와 다릅니다")
+            setIsCode(true)
         }
     }
 
@@ -185,8 +217,13 @@ const Register = () => {
                 <input type="text" name="nick" onChange={nickHandeler}></input><br />
                 <span>{nickMsg}</span><br />
                 <label for="email">이메일</label>
-                <input type="text" name="email" onChange={emailHandeler}></input><br />
+                <input type="text" name="email" onChange={emailHandeler}></input>
+                <input type="button" value = "인증번호 받기" onClick={emailButtonHandler} disabled={isEmail}/><br />
                 <span>{emailMsg}</span><br />
+                <label for="code">인증번호</label>
+                <input type="text" onChange ={codeHandler} onClick={codeButtonHandler}/>
+                <input type="button" value="확인"/><br />
+                <span>{codeConfirmMsg}</span><br />
                 <label for="pwd">비밀번호</label>
                 <input type="password" name="pwd" onChange={pwdHandeler}></input><br /><br />
                 <label for="rePwd">비밀번호 확인</label>
@@ -198,7 +235,7 @@ const Register = () => {
             </div>
             <div>
                 <hr/>
-                <button onClick={buttonHandler} disabled={!(isName&&isNick&&ispwd&&isConfirm&&isEmail&&isNum)}>가입하기</button>
+                <button onClick={buttonHandler} disabled={(isName&&isNick&&ispwd&&isConfirm&&isEmail&&isCode&&isNum)}>가입하기</button>
             </div>
         </div>
     );
