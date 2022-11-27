@@ -1,13 +1,16 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
 import '../style/init.css';
 import router from './routes';
-import Register from "./Home/Register"
-import Description from './Home/Description';
-import Login from "./Home/Login";
-import MyPage from './Home/MyPage';
+
+import NavigationBar from '../components/NavigationBar';
 
 function App() {
-  return 
+  return (
+    <>
+      <NavigationBar />
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;

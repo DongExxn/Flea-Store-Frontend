@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: #10ac3c;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+}
+
+.login {
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+a {
+  color: white;
+  text-decoration-line: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: inherit;
+}
+
+img {
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+}
+
+span {
+  font-weight: bolder;
+}

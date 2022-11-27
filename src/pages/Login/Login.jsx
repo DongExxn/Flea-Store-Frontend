@@ -1,9 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
 const Login = () => {
+    const navigate = useNavigate()
     const [id, setId] = useState("")
     const [pwd, setPwd] = useState("")
 
@@ -41,12 +42,16 @@ const Login = () => {
         .then(response => {
             localStorage.clear()//로컬 스토리지 비운다
             localStorage.setItem("accessToken", response.data.accessToken)
-            Navigate("")//로그인 성공 시 홈 화면 이동
+            navigate("")//로그인 성공 시 홈 화면 이동
         })
         .catch(error => {
             alert("등록된 계정이 아닙니다.")
             return
         })
+    }
+
+    const registerButtonHandler = () => {
+        navigate('/description')
     }
 
 
@@ -68,7 +73,7 @@ const Login = () => {
                 <hr />
             </div>
             <div>
-                <button>회원가입</button>
+                <button onClick={registerButtonHandler}>회원가입</button>
             </div>
         </div>
     );
