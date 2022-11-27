@@ -42,6 +42,7 @@ const Login = () => {
         .then(response => {
             localStorage.clear()//로컬 스토리지 비운다
             localStorage.setItem("accessToken", response.data.accessToken)
+            localStorage.setItem("grantType", response.data.grantType)
             navigate("/")//로그인 성공 시 홈 화면 이동
         })
         .catch(error => {

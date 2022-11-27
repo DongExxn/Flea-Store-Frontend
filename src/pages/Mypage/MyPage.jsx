@@ -15,9 +15,11 @@ const MyPage = () => {
     useEffect(() => {
         let url = "http://localhost:8080/user"
         let token = localStorage.getItem("accessToken");
+        let grantType = localStorage.getItem("grantType");
+
         axios.get(url, {
             headers: {
-                accessToken: token
+                'accessToken': grantType + ' ' + token
             }
         })
         .then(response => {
