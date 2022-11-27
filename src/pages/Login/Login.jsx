@@ -1,9 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
 const Login = () => {
+    const navigate = useNavigate()
     const [id, setId] = useState("")
     const [pwd, setPwd] = useState("")
 
@@ -18,7 +19,6 @@ const Login = () => {
     const buttonHandler = () => {
         let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')
         let url = 'http://localhost:8080/auth/user/login'
-        console.log("in")
 
         if(regex.test(id) === false){
             alert('유효한 이메일 형식이 아닙니다.')
@@ -39,13 +39,19 @@ const Login = () => {
             "email": id,
             "password": pwd
         })
-        .then(respnse => {
-            Navigate("")
+        .then(response => {
+            localStorage.clear()//로컬 스토리지 비운다
+            localStorage.setItem("accessToken", response.data.accessToken)
+            navigate("")//로그인 성공 시 홈 화면 이동
         })
         .catch(error => {
             alert("등록된 계정이 아닙니다.")
             return
         })
+    }
+
+    const registerButtonHandler = () => {
+        navigate('/description')
     }
 
 
@@ -67,7 +73,7 @@ const Login = () => {
                 <hr />
             </div>
             <div>
-                <button>회원가입</button>
+                <button onClick={registerButtonHandler}>회원가입</button>
             </div>
         </div>
     );
