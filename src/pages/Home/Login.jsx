@@ -18,7 +18,6 @@ const Login = () => {
     const buttonHandler = () => {
         let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')
         let url = 'http://localhost:8080/auth/user/login'
-        console.log("in")
 
         if(regex.test(id) === false){
             alert('유효한 이메일 형식이 아닙니다.')
