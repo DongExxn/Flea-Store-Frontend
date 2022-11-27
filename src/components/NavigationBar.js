@@ -26,13 +26,13 @@ const NavigationBar = () => {
           <a href={`/favorite`}>
             <img src={Favorite} alt="Favorite" />
           </a>
-          <a href={`/store`}>
+          <a href={`/markets`}>
             <img src={ShoppingBag} alt="ShoppingBag" />
           </a>
-          <a href={`/calender`}>
+          <a href={`/ calender`}>
             <img src={Calender} alt="Calender" />
           </a>
-          <a href={`/profile`}>
+          <a href={`/ profile`}>
             <img src={Account} alt="Account" />
           </a>
         </div>

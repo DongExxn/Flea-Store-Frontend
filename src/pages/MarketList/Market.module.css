@@ -1,0 +1,105 @@
+.column_wrap {
+    display: flex;
+    justify-content: center;
+    height: 200vh;
+}
+
+.column_is_fixed {
+    width: 50%;
+    padding-right: 3.33%;
+    /* float: left; */
+}
+
+.column {
+    width: 50%;
+    background-color: rgb(225, 244, 242);
+    padding-left: 3.33%;
+
+}
+
+.map_area {
+    height: 400px;
+    background-color: thistle;
+}
+
+.others_area {
+    height: 400px;
+    background-color: aquamarine;
+}
+
+/* ㅇ */
+
+.market_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px black solid; */
+    width: 20%;
+
+    margin: 3% 1%;
+    padding: 1%;
+
+    box-shadow: -1px 6px 10px 0 rgba(80, 80, 80, 0.473);
+}
+
+.market_header {
+    font-size: 2em;
+}
+
+.image_box {
+    width: 100%;
+}
+
+.image_box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.market_info {
+    width: 100%;
+    padding-left: 20%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    font-size: 1.1em;
+}
+
+.title {
+    text-align: left;
+    font-size: large;
+}
+
+.title_1 {
+    text-align: left;
+    text-decoration: underline;
+    margin: 15px 0px;
+    font-size: xx-large;
+}
+
+.title_2 {
+    text-align: left;
+    font-size: x-large;
+    margin: 15px 0px;
+}
+
+.title_3 {
+    text-align: left;
+    font-size: large;
+    color: rgb(156, 166, 165)
+}
+
+.title_4 {
+    position: absolute;
+
+}
+
+.box {
+    width: 700px;
+    height: 350px;
+    background-color: rgb(170, 212, 191);
+    border: 1px solid rgb(225, 244, 242);
+}

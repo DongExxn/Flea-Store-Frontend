@@ -46,7 +46,7 @@ const rows = [
 ];
 
 
-function Detail() {
+function Market() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [data, setData] = useState([]);
@@ -133,11 +133,6 @@ function Detail() {
             </section>
             <section className={styles.map_area}>
                 <h1>마켓 지도 팜플렛</h1>
-                <img
-                    src={`${data.mapImage}`}
-                    className="marketMap"
-                    alt="Market Map Image"
-                />
             </section>
             <section>
                 <div className={styles.others_area}>

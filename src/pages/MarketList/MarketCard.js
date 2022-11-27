@@ -35,10 +35,6 @@ const MarketCard = ({
     return (
         <Card
             className="Card"
-            sx={{
-                maxWidth: 400,
-                minWidth: 288,
-            }}
         >
             <CardActionArea
                 style={{ cursor: "pointer" }}
