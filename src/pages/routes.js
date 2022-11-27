@@ -9,7 +9,7 @@ import Register from './Register/Register.jsx';
 const router = createBrowserRouter([
   {
     path: `/`,
-    element: <Home />,
+    element: <Home />
   },
   {
     path: '/login',

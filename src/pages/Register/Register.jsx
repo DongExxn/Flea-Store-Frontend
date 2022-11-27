@@ -3,6 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
+import style from '../../style/Register.module.css'
 
 const Register = () => {
     const [name, setName] = useState("")
@@ -21,13 +22,14 @@ const Register = () => {
     const [pwdConfirmMsg, setPwdConfirmMsg] = useState("")
     const [numMsg, setNumMsg] = useState("")
 
-    const [isName, setIsName] = useState(true)
-    const [isNick, setIsNick] = useState(true)
+    const [isName, setIsName] = useState(true)//이름 입력 됐는지
+    const [isNick, setIsNick] = useState(true)//닉네임 입력 됐는지
+    const [isButton, setIsButton] = useState(true)//가입하기와 상관 없음
     const [isEmail, setIsEmail] = useState(true)
     const [isCode, setIsCode] = useState(true)
-    const [ispwd, setIsPwd] = useState(true)
-    const [isConfirm, setIsConfirm] = useState(true)
-    const [isNum , setIsNum] = useState(true)
+    const [ispwd, setIsPwd] = useState(true)//비번 입력 했는지
+    const [isConfirm, setIsConfirm] = useState(true)//비번 확인 입력 했는지
+    const [isNum , setIsNum] = useState(true)//번호 입력 했는지
 
     useEffect(() => {
         setPwdConfirm("")
@@ -40,41 +42,26 @@ const Register = () => {
             setIsName(true)
         }
         else{
-            setNameMsg("이름 입력이 완료되었습니다.")
+            setNameMsg("이름 입력이 완료되었습니다")
             setIsName(false)
         }
     }
 
     const nickHandeler = (event) => {
         setNick(event.target.value)
-        let url = "http://localhost:8080/auth/users/" + nick
-        
+
         if(nick.length < 2){
             setNickMsg("닉네임을 입력해주세요")
             setIsNick(true)
         }
         else{
-            axios.get(url)
-            .then((response) => {
-                if(response.message === "사용 가능한 이메일입니다."){
-                    setNickMsg("사용 가능한 이메일입니다.")
-                    setIsNick(false)
-                }
-                else if(response.message === "이미 존재하는 이메일입니다."){
-                    setNickMsg("이미 존재하는 이메일입니다.")
-                    setIsNick(true)
-                }
-            })
-            .catch((error) => {
-                console.log("nickname api error")
-                setIsNick(true)
-            })
+            setNickMsg("닉네임 입력이 완료되었습니다")
+            setIsNick(false)
         }
     }
 
     const emailHandeler = (event) =>{
         setEmail(event.target.value)
-        let url = "http://localhost:8080/auth/users/" + email
         let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')
 
         if(email.length < 2){
@@ -87,34 +74,20 @@ const Register = () => {
                 setIsEmail(true)
             }
             else{
-                axios.get(url)
-                .then((response)=>{
-                    if(response.message === '사용 가능한 이메일입니다.'){
-                        setEmailMsg("사용 가능한 이메일입니다.")
-                        setIsEmail(false)
-                    }
-                    else{
-                        setEmailMsg("이미 존재하는 이메일입니다.")
-                        setIsEmail(true)
-                    }
-                })
-                .catch((error)=>{
-                    console.log("email api error")
-                })
+                setEmailMsg("이메일 입력이 완료되었습니다.")
+                setIsEmail(false)
             }
         }
     }
 
-    const emailButtonHandler = () => {
-        let url = "http://localhost:8080/auth/users/send-" + email
+    const emailDuplicateHandler = () => {
+        setIsButton(!isButton)
+        //api 사용해서 이메일 중복 여부 확인
+    }
 
-        axios.get(url)
-        .then(response => {
-            setServerCode(response.data)
-        })
-        .catch(error => {
-            console.log("email auth code error")
-        })
+    const emailCheckHandler = () => {
+        setIsButton(!isButton)
+        //api 사용해서 이메일 인증 번호 전송
     }
 
     const codeHandler = (event) => {
@@ -122,15 +95,9 @@ const Register = () => {
     }
 
     const codeButtonHandler = () => {
-        console.log("in")
-        if(code === serverCode){
-            setCodeConfirmMsg("인증번호 확인이 완료되었습니다")
-            setIsCode(false)
-        }
-        else{
-            setCodeConfirmMsg("발급된 인증번호와 다릅니다")
-            setIsCode(true)
-        }
+        //이메일 인증 코드 확인
+        //같을 땐 ok alert
+        //다를 땐 인증번호 다르다고 alert
     }
 
     const pwdHandeler = (event) =>{
@@ -186,56 +153,65 @@ const Register = () => {
 
     const buttonHandler = () => {
         let url = "http://localhost:8080/auth/user/signup"
-        axios.post(url, {
-            "email": email,
-            "name": name,
-            "nickname": nick,
-            "password": pwd,
-            "phoneNumber": num
-        })
-        .then((response) => {
-            Navigate("")
-        })
-        .catch((error) => {
-            console.log("post api error")
-        })
+
+
+        if((isName&&isNick&&isCode&&ispwd&&isConfirm&&isNum)){
+            alert("모든 정보를 기입해주시기 바랍니다")
+            return
+        }
+        else{
+            axios.post(url, {
+                "email": email,
+                "name": name,
+                "nickname": nick,
+                "password": pwd,
+                "phoneNumber": num
+            })
+            .then((response) => {
+                Navigate("/login")
+            })
+            .catch((error) => {
+                console.log("post api error")
+            })
+        }
     }
 
     return (
         <div>
             <div>
-                <h1>벼룩창고</h1>
+                <h1 className={style.header}>회원가입</h1>
             </div>
-            <div>
-                <span>회원 정보를 입력해주세요.</span><hr />
-            </div>
-            <div>
-                <label for="name">이름</label>
-                <input type="text" name="name" onChange={nameHandeler}></input><br />
-                <span>{nameMsg}</span><br />
-                <label for="nick">닉네임</label>
-                <input type="text" name="nick" onChange={nickHandeler}></input><br />
-                <span>{nickMsg}</span><br />
-                <label for="email">이메일</label>
-                <input type="text" name="email" onChange={emailHandeler}></input>
-                <input type="button" value = "인증번호 받기" onClick={emailButtonHandler} disabled={isEmail}/><br />
+            <div className={style.inner}>
+                <span>이름</span><br />
+                <input type="text" name="name" onChange={nameHandeler} className={style.full}></input><br />
+                <span>{nameMsg}</span><br /><br />
+                <span>닉네임</span><br />
+                <input type="text" name="nick" onChange={nickHandeler} className={style.full}></input><br />
+                <span>{nickMsg}</span><br /><br />
+                <span>이메일</span><br />
+                <div className={style.full}>
+                    <input className={style.combination} type="text" name="email" onChange={emailHandeler}></input>
+                    {isButton ? <input type="button" value = "중복 확인" onClick={emailDuplicateHandler}/> : 
+                    <input type="button" value="인증번호 받기" onClick={emailCheckHandler}/>}<br />
+                </div>
                 <span>{emailMsg}</span><br />
-                <label for="code">인증번호</label>
-                <input type="text" onChange ={codeHandler} onClick={codeButtonHandler}/>
-                <input type="button" value="확인"/><br />
+                <div className={style.full}>
+                    <input type="text" placeholder='인증번호 입력하세요' onChange ={codeHandler} onClick={codeButtonHandler} className={style.combination}/>
+                    <input type="button" value="확인"/><br />
+                </div>
                 <span>{codeConfirmMsg}</span><br />
-                <label for="pwd">비밀번호</label>
-                <input type="password" name="pwd" onChange={pwdHandeler}></input><br /><br />
-                <label for="rePwd">비밀번호 확인</label>
-                <input type="password" name="rePwd" onChange={rePwdHandeler}></input><br />
+                <span>비밀번호</span><br />
+                <input type="password" name="pwd" onChange={pwdHandeler} className={style.full}></input><br /><br />
+                <span>비밀번호 확인</span><br />
+                <input type="password" name="rePwd" onChange={rePwdHandeler} className={style.full}></input><br />
                 <span>{pwdConfirmMsg}</span><br/>
-                <label for="num">휴대폰 번호</label>
-                <input type="text" for="pwd" onInput={numHandeler}></input><br/>
+                <span>휴대전화</span><br />
+                <input type="text" for="pwd" onInput={numHandeler} className={style.full}></input><br/>
                 <span>{numMsg}</span>
             </div>
-            <div>
+            <div className={style.low}>
                 <hr/>
-                <button onClick={buttonHandler} disabled={(isName&&isNick&&ispwd&&isConfirm&&isEmail&&isCode&&isNum)}>가입하기</button>
+                <button onClick={buttonHandler} className={style.finalButton}>가입하기</button>
             </div>
         </div>
     );

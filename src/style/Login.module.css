@@ -1,0 +1,48 @@
+.label{
+    font-size: 130%;
+    width: 40%;
+}
+
+.box{
+    padding: 1%;
+    margin : 1%;
+    width: inherit;
+}
+
+.loginButton{
+    background-color: #10ac3c;
+    border-radius: 11%;
+    /* width: 15%; */
+    padding: 2% 0%;
+    font-size: 120%;
+    margin: 5% 0%;
+}
+
+.registerButton{
+    background-color: white;
+    border-radius: 10%;
+    /* width: 15%; */
+    padding: 2% 0%;
+    font-size: 120%;
+    margin: 5% 0%;
+}
+
+.outter{
+    border: 1px solid;
+    text-align: center;
+}
+
+.finalOutter{
+    margin: 10% 10% 10% 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+.inner{
+    text-align: center;
+}
+
+.outInner{
+    display: flex;
+    width: 100%;
+}
