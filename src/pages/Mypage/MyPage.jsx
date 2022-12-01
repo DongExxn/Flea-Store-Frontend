@@ -19,10 +19,11 @@ const MyPage = () => {
 
         axios.get(url, {
             headers: {
-                'accessToken': grantType + ' ' + token
+                'authorization': grantType + ' ' + token
             }
         })
         .then(response => {
+            console.log(response)
             setInfo(response.data)
         })
         .catch(error => {
@@ -109,9 +110,6 @@ const MyPage = () => {
 
     return (
         <div>
-            <div>
-                <h1>벼룩창고</h1>
-            </div>
             <div>
                 <label>이메일</label>
                 <div>이메일</div><hr />

@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import style from '../../style/Login.module.css';
 
 const Login = () => {
     const navigate = useNavigate()
@@ -40,10 +41,16 @@ const Login = () => {
             "password": pwd
         })
         .then(response => {
-            localStorage.clear()//로컬 스토리지 비운다
-            localStorage.setItem("accessToken", response.data.accessToken)
-            localStorage.setItem("grantType", response.data.grantType)
-            navigate("/")//로그인 성공 시 홈 화면 이동
+            // localStorage.clear()//로컬 스토리지 비운다
+            // localStorage.setItem("accessToken", response.data.accessToken)
+            // localStorage.setItem("grantType", response.data.grantType)
+            // navigate("/")//로그인 성공 시 홈 화면 이동
+            console.log(response.data.data.authority)
+            localStorage.clear()
+            localStorage.setItem("grantType", response.data.data.grantType)
+            localStorage.setItem("accessToken", response.data.data.accessToken)
+            localStorage.setItem("authority", response.data.data.authority)
+
         })
         .catch(error => {
             alert("등록된 계정이 아닙니다.")
@@ -59,22 +66,23 @@ const Login = () => {
 
 
     return (
-        <div>
-            <div>
-                <h1>벼룩창고</h1>
+        <div className={style.finalOutter}>
+            <div className={style.outter}>
+                <div className={style.outInner}>
+                    <label for="email" className={style.label}>이메일</label>
+                    <input type="text" name="email" onChange={emailHandeler} className={style.box}></input><br />
+                </div>
+                <div className={style.outInner}>
+                    <label for="pwd" className={style.label}>비밀번호</label>
+                    <input type="password" name="pwd" onChange={pwdHandler} className={style.box}></input>
+                </div>
             </div>
-            <div>
-                <label for="email">이메일</label>
-                <input type="text" name="email" onChange={emailHandeler}></input><br />
-                <label for="pwd">비밀번호</label>
-                <input type="password" name="pwd" onChange={pwdHandler}></input>
+            <div className={style.inner}>
+                <button onClick={buttonHandler} className={style.loginButton}>로그인</button>
+                <hr/>
             </div>
-            <div>
-                <button onClick={buttonHandler}>로그인</button>
-                <hr />
-            </div>
-            <div>
-                <button onClick={registerButtonHandler}>회원가입</button>
+            <div className={style.inner}>
+                <button onClick={registerButtonHandler} className={style.registerButton}>회원가입</button>
             </div>
         </div>
     );

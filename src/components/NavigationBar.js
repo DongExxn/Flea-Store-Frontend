@@ -32,7 +32,7 @@ const NavigationBar = () => {
           <a href={`/calender`}>
             <img src={Calender} alt="Calender" />
           </a>
-          <a href={`/profile`}>
+          <a href={`/MyPage`}>
             <img src={Account} alt="Account" />
           </a>
         </div>

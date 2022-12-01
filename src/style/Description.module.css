@@ -1,0 +1,44 @@
+.header{
+    font-weight: bold;
+    font-size: 150%;
+}
+
+.all{
+    font-weight: bold;
+    font-size: 110%;
+    margin-top:5%;
+    margin-bottom: 10%;
+}
+
+.box{
+    border: 1px solid;
+    margin-top:2%;
+    margin-bottom: 10%;
+    background-color: whitesmoke;
+}
+
+.essential{
+    color: #10ac3c;
+}
+
+.optional{
+    color: rgb(104, 99, 99);
+}
+
+.low{
+    display: flex;
+    justify-content: space-around;
+    margin: 0% 30%
+}
+
+.cancel{
+    background-color: gray;
+    padding: 4% 6%;
+    font-size: 120%;
+}
+
+.ok{
+    background-color: #10ac3c;
+    padding: 4% 6%;
+    font-size: 120%;
+}

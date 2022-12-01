@@ -1,0 +1,29 @@
+.header{
+    font-weight: bold;
+    font-size: 150%;
+}
+
+.inner{
+    margin: 5% 20%;
+    
+}
+
+.full{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.combination {
+    width: inherit;
+}
+
+.low{
+    text-align: center;
+}
+
+.finalButton{
+    padding: 3%;
+    background-color: #10ac3c;
+    border-radius: 5%;
+}
