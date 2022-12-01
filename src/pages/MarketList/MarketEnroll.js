@@ -17,6 +17,7 @@ import {
     Row,
     Select
 } from "antd";
+
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -84,61 +85,63 @@ function MarketEnroll() {
     );
 
     return (
-        <Form>
-            <div>
-                <h2>플리마켓 신청</h2>
+        <div style={{ margin: 'auto' }}>
+            <Form style={{ display: 'inline-block' }}>
                 <div>
-                    <label htmlFor="input_name"></label>
-                    <Input placeholder="부스 이름" prefix={<ShopOutlined />} />
+                    <h1>플리마켓 신청</h1>
+                    <div>
+                        <label htmlFor="input_name"></label>
+                        <Input placeholder="플리마켓 이름" prefix={<ShopOutlined />} />
+                    </div>
+                    <div>
+                        <label htmlFor="input_date">
+                            플리마켓 기간 : <DatePicker /> ~ <DatePicker />
+                        </label>
+                    </div>
+                    <div>
+                        <label htmlFor="input_about"></label>
+                        <Input
+                            placeholder="판매자 정보(ex: 이름/전화번호)"
+                            prefix={<UserOutlined />}
+                            name="input_seller"
+                            value={inputSeller}
+                            onChange={handleInputSeller}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="input_about"></label>
+                        <TextArea
+                            rows={3}
+                            placeholder="판매상품목록"
+                            maxLength={6}
+                            name="input_seller"
+                            value={inputProduct}
+                            onChange={handleInputProduct}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="input_date">운영 시간 : </label>
+                        <TimePicker.RangePicker />
+                    </div>
+                    <div>
+                        <label htmlFor="input_about"></label>
+                        <TextArea
+                            rows={4}
+                            placeholder="플리마켓 설명"
+                            maxLength={6}
+                            onChange={onChange}
+                        />
+                    </div>
+                    <div>
+                        <Button type="primary onClick={onClickBoothEnroll}">
+                            플리마켓 목록 보기
+                        </Button>
+                        <Button onClick={onClickBoothEnroll}>플리마켓 등록하기</Button>
+                    </div>
+                    {/* <Link to="/register">회원가입</Link> */}
                 </div>
-                <div>
-                    <label htmlFor="input_date">
-                        플리마켓 기간 : <DatePicker /> ~ <DatePicker />
-                    </label>
-                </div>
-                <div>
-                    <label htmlFor="input_about"></label>
-                    <Input
-                        placeholder="판매자 정보(ex: 이름/전화번호)"
-                        prefix={<UserOutlined />}
-                        name="input_seller"
-                        value={inputSeller}
-                        onChange={handleInputSeller}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="input_about"></label>
-                    <TextArea
-                        rows={3}
-                        placeholder="판매상품목록"
-                        maxLength={6}
-                        name="input_seller"
-                        value={inputProduct}
-                        onChange={handleInputProduct}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="input_date">운영 시간 : </label>
-                    <TimePicker.RangePicker />
-                </div>
-                <div>
-                    <label htmlFor="input_about"></label>
-                    <TextArea
-                        rows={4}
-                        placeholder="부스 설명"
-                        maxLength={6}
-                        onChange={onChange}
-                    />
-                </div>
-                <div>
-                    <Button type="primary onClick={onClickBoothEnroll}">
-                        플리마켓 목록 보기
-                    </Button>
-                    <Button onClick={onClickBoothEnroll}>플리마켓 등록하기</Button>
-                </div>
-                {/* <Link to="/register">회원가입</Link> */}
-            </div>
-        </Form>
+            </Form>
+        </div >
     );
 }
 

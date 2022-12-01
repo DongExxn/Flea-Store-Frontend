@@ -6,6 +6,7 @@ import Login from './Login/Login.jsx';
 import MarketEnroll from './MarketList/MarketEnroll.js';
 import MyPage from './Mypage/MyPage.jsx';
 import Register from './Register/Register.jsx';
+import Market from './MarketList/Market.js';
 
 
 const router = createBrowserRouter([
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: '/markets',
     element: <MarketEnroll />
+  },
+  {
+    path: '/marketlist',
+    element: <Market />
   }
 ]);
 
