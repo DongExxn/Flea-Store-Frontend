@@ -1,0 +1,52 @@
+.container {
+  height: calc(100vh - 6rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper {
+  border-radius: 2rem;
+  width: 90%;
+  height: 95%;
+  background-color: white;
+  box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem gray;
+}
+
+.requestBox {
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid gray;
+}
+
+.requestInfo {
+  color: rgb(80, 80, 80);
+  display: flex;
+  flex-direction: column;
+}
+
+.requestInfo span {
+  margin-bottom: 0.5rem;
+}
+
+.requestBtnBox {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.requestBtnBox input {
+  border-radius: 0.5rem;
+  height: 2rem;
+  width: 5rem;
+  border: none;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  background-color: #58b671;
+  color: white;
+  font-weight: bolder;
+}
