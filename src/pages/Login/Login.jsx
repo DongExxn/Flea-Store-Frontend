@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import style from '../../style/Login.module.css';
 
-const Login = () => {
+const Login = ({setName}) => {
     const navigate = useNavigate()
     const [id, setId] = useState("")
     const [pwd, setPwd] = useState("")
@@ -15,6 +15,20 @@ const Login = () => {
 
     const pwdHandler = (event) => {
         setPwd(event.target.value)
+    }
+
+    const getName = () => {
+        axios.get('http://localhost:8080/user',{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+              }
+        })
+        .then(response => {
+            setName(response.data.data.name)
+        })
+        .catch(error => {
+            console.log("in")
+        })
     }
 
     const buttonHandler = () => {
@@ -45,11 +59,20 @@ const Login = () => {
             // localStorage.setItem("accessToken", response.data.accessToken)
             // localStorage.setItem("grantType", response.data.grantType)
             // navigate("/")//로그인 성공 시 홈 화면 이동
-            console.log(response.data.data.authority)
-            localStorage.clear()
-            localStorage.setItem("grantType", response.data.data.grantType)
-            localStorage.setItem("accessToken", response.data.data.accessToken)
-            localStorage.setItem("authority", response.data.data.authority)
+            if(response.data.massage === '로그인 성공!'){
+                console.log(response)
+                console.log(response.data.data.authority)
+                localStorage.clear()
+                localStorage.setItem("grantType", response.data.data.grantType)
+                localStorage.setItem("accessToken", response.data.data.accessToken)
+                localStorage.setItem("authority", response.data.data.authority)
+                getName()
+                navigate('/')
+            }
+            else{
+                alert("등록되지 않는 계정입니다")
+                return
+            }
 
         })
         .catch(error => {
@@ -78,7 +101,7 @@ const Login = () => {
                 </div>
             </div>
             <div className={style.inner}>
-                <button onClick={buttonHandler} className={style.loginButton}>로그인</button>
+                <button onClick={buttonHandler} className={style.loginButton}><a>로그인</a></button>
                 <hr/>
             </div>
             <div className={style.inner}>
