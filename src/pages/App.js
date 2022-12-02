@@ -1,4 +1,4 @@
-import { BrowserRouter, Route,  Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import '../style/init.css';
 
 import NavigationBar from '../components/NavigationBar';
@@ -14,32 +14,36 @@ import Favorite from './Favorite';
 import Manage from './Manage';
 
 function App() {
-  const [name, setName] = useState("");
-    const getName = () => {
-     if(localStorage.getItem('accessToken') !== null)
-     {
-     axios.get('http://localhost:8080/user', {
-       headers: {
-         Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-       }
-     })
-     .then(response => {
-       setName(response.data.data.name);
-     })
-     .catch(error => {
-       console.log(error);
-     })
+  const [name, setName] = useState('');
+  const getName = () => {
+    if (localStorage.getItem('accessToken') !== null) {
+      axios
+        .get('http://localhost:8080/user', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then((response) => {
+          setName(response.data.data.name);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-   }
-   getName();
+  };
+  getName();
 
   return (
     <>
       <BrowserRouter>
-        <NavigationBar name={name}/>
+        <NavigationBar name={name} />
         <Routes>
           <Route path="/" exact element={<Home />}></Route>
-          <Route path="/login" exact element={<Login setName={setName} />}></Route>
+          <Route
+            path="/login"
+            exact
+            element={<Login setName={setName} />}
+          ></Route>
           <Route path="/description" exact element={<Description />}></Route>
           <Route path="/Register" exact element={<Register />}></Route>
           <Route path="/MyPage" exact element={<MyPage />}></Route>

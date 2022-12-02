@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  background-color: #10ac3c;
+  background-color: rgb(95, 190, 187);
 }
 
 .top {
