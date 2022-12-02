@@ -15,22 +15,26 @@ import Manage from './Manage';
 
 function App() {
   const [name, setName] = useState("");
+  const [user, setUser] = useState([]);
+
     const getName = () => {
      if(localStorage.getItem('accessToken') !== null)
      {
-     axios.get('http://localhost:8080/user', {
+      axios.get('http://localhost:8080/user', {
        headers: {
          Authorization: `Bearer ${localStorage.getItem('accessToken')}`
        }
      })
      .then(response => {
        setName(response.data.data.name);
+       setUser(response.data.data)
      })
      .catch(error => {
        console.log(error);
      })
     }
    }
+
    getName();
 
   return (
@@ -39,10 +43,10 @@ function App() {
         <NavigationBar name={name}/>
         <Routes>
           <Route path="/" exact element={<Home />}></Route>
-          <Route path="/login" exact element={<Login setName={setName} />}></Route>
+          <Route path="/login" exact element={<Login setName={setName} setUser={setUser} />}></Route>
           <Route path="/description" exact element={<Description />}></Route>
           <Route path="/Register" exact element={<Register />}></Route>
-          <Route path="/MyPage" exact element={<MyPage />}></Route>
+          <Route path="/MyPage" exact element={<MyPage user={user}/>}></Route>
           <Route path="/Calender" exact element={<Calender />}></Route>
           <Route path="/Favorite" exact element={<Favorite />}></Route>
           <Route path="/Manage" exact element={<Manage />}></Route>

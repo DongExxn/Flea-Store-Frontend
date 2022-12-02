@@ -44,7 +44,8 @@ const Description = () => {
     }
 
     const okHandler = () => {
-        if(checkedItems.length === 3){
+        console.log()
+        if(checkedItems.includes("")){
             navigate("/register")
         }
         else{

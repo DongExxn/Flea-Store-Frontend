@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import style from '../../style/Login.module.css';
 
-const Login = ({setName}) => {
+const Login = ({setName, setUser}) => {
     const navigate = useNavigate()
     const [id, setId] = useState("")
     const [pwd, setPwd] = useState("")
@@ -25,6 +25,7 @@ const Login = ({setName}) => {
         })
         .then(response => {
             setName(response.data.data.name)
+            setUser(response.data.data)
         })
         .catch(error => {
             console.log("in")
@@ -60,8 +61,6 @@ const Login = ({setName}) => {
             // localStorage.setItem("grantType", response.data.grantType)
             // navigate("/")//로그인 성공 시 홈 화면 이동
             if(response.data.massage === '로그인 성공!'){
-                console.log(response)
-                console.log(response.data.data.authority)
                 localStorage.clear()
                 localStorage.setItem("grantType", response.data.data.grantType)
                 localStorage.setItem("accessToken", response.data.data.accessToken)

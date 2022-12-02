@@ -1,68 +1,45 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 
-const MyPage = () => {
-    const [info, setInfo] = useState([]);
+const MyPage = ({user}) => {
     const [nick, setNick] = useState("")
     const [num, setNum] = useState("")
-    const [isPwd, setIsPwd] = useState(true)
-    const [curPwd, setCurPwd] = useState("")
-    const [newPwd, setNewPwd] = useState("")
-    const [rePwd, setRePwd] = useState("")
+    const [name, setName] = useState("")
+    const [isPwd, setIsPwd] = useState(true)//비밀번호 변경 탭 뜨는거
+    const [newPwd, setNewPwd] = useState("")//새로운 패스워드
+    const [rePwd, setRePwd] = useState("")//패스워드 재확인
     const accessToken = localStorage.getItem("accessToken")
-
-    useEffect(() => {
-        let url = "http://localhost:8080/user"
-        let token = localStorage.getItem("accessToken");
-        let grantType = localStorage.getItem("grantType");
-
-        axios.get(url, {
-            headers: {
-                'authorization': grantType + ' ' + token
-            }
-        })
-        .then(response => {
-            console.log(response)
-            setInfo(response.data)
-        })
-        .catch(error => {
-            console.log("can't get user info")
-        })
-    }, [])
 
     const pwdButtonHandler = () => {
         setIsPwd(!isPwd)
     }
 
     const inPwdButtonHandler = () => {
-        let url = "http://localhost:8080/user/password"
-
-        axios.post(url, {
-            "currPassword" : curPwd,
-            "newPassword" : newPwd
-        },
-        {headers:
-        {
-            'accessToken': accessToken
+        if(newPwd !== rePwd){
+            alert("새로운 비밀번호와 재확인 비밀번호가 일치하지 않습니다.")
+            return
         }
-        }
-        )
+        
+        axios.post('http://localhost:8080/user/password',{
+            "newPassword": newPwd
+        },{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+              }
+        })
         .then(response => {
-            console.log("성공")
-            setIsPwd(true)
+            alert('패스워드가 변경되었습니다.')
+            pwdButtonHandler()
         })
         .catch(error => {
-            console.log("실패?")
+            console.log(error)
         })
-    }
-
-    const curPwdHandler = (event) => {
-        setCurPwd(event.target.value)
     }
 
     const newPwdHandler = (event) => {
-        setRePwd(event.target.value)
+        setNewPwd(event.target.value)
     }
 
     const rePwdHandler = (event) => {
@@ -70,6 +47,7 @@ const MyPage = () => {
     }
 
     const nickHandler = (event) => {
+        console.log("in")
         setNick(event.target.value)
     }
     
@@ -81,46 +59,26 @@ const MyPage = () => {
         setNum(event.target.value)
     }
 
+    const nameHandler = (event) => {
+        setName(event.target.value)
+    }
+
     const changeButtonHandler = () => {
-        let url = "http://localhost:8080/user"
-
-        if(nick === "" || num === "" || (nick === '서버 닉' && num === '서버 폰'))
+        if(name === '' && nick === '' && num === '')
             alert("변경된 정보가 없습니다")
-        else{
-            if(nick === '서버 닉')
-                setNick("서버 닉")
-            if(num === "서버 폰")
-                setNum("서버 폰")
-
-            axios.put(url, {
-                "nickName": nick,
-                "phoneNum": num
-            },
-            {headers:{
-                'accessToken' : accessToken
-            }})
-            .then(response => {
-                console.log("정보 수정 성공")
-            })
-            .catch(error => {
-                console.log("정보 수정 실패")
-            })
-        }
     }
 
     return (
         <div>
             <div>
                 <label>이메일</label>
-                <div>이메일</div><hr />
+                <div>{user.email}</div><hr />
             </div>
             <div>
                 <label>비밀번호</label>
                 <input type="button" value="비밀번호 변경" onClick={pwdButtonHandler}/>
                 {isPwd ? <></>:
                 <div>
-                    <label>현재 비밀번호</label>    
-                    <input type="password" value={curPwd} onChange={curPwdHandler}/><br />
                     <label>새로운 비밀번호</label> 
                     <input type="password" value={newPwd} onChange={newPwdHandler}/><br />
                     <label>비밀번호 확인</label> 
@@ -129,20 +87,20 @@ const MyPage = () => {
                 </div>}
             </div>
             <div>
-                <label>이름</label>
-                <div>이름<hr /></div>
+                <label>이름</label><br />
+                <input type="text" placeholder={user.name} onChange={nameHandler}/><hr />
             </div>
             <div>
-                <label>닉네임</label>
-                <input type="text" value="서버에서 받아온 닉네임" onChange={nickHandler}/><hr />
+                <label>닉네임</label><br />
+                <input type="text" placeholder={user.nickname} onChange={nickHandler}/><hr />
             </div>
             <div>
-                <label>전화번호</label>
-                <input type="text" value="서버에서 받아온 전화번호" onChange={numHandler}/><hr />
+                <label>전화번호</label><br />
+                <input type="text" placeholder={user.phoneNumber} onChange={numHandler}/><hr />
             </div>
             <div>
                 <label>권한</label>
-                <div>권한</div><hr />
+                <div>{localStorage.getItem("authority") === 'ROLE_USER' ? '회원' : '판매자'}</div><hr />
             </div>
             <div>
                 <input type="button" value="관심마켓"/>
