@@ -1,0 +1,80 @@
+.container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper {
+  box-sizing: border-box;
+  padding: 2rem;
+  border-radius: 2rem;
+  width: 90%;
+  height: 95%;
+  background-color: white;
+  box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem gray;
+}
+
+.monthBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.monthBar input {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  height: 2rem;
+  width: 3rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: rgb(95, 190, 187);
+  color: white;
+  font-weight: bolder;
+}
+
+.monthBar h1 {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: rgb(95, 190, 187);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.marketInfo {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: none;
+  border-radius: 1rem;
+  background-color: rgb(200, 200, 200);
+  color: rgb(80, 80, 80);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem gray;
+}
+
+.marketInfo span {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.filter {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: min-content;
+}
+
+.filter span {
+  color: rgb(80, 80, 80);
+  font-size: 1.5rem;
+}

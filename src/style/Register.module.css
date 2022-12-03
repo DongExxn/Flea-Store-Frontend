@@ -1,10 +1,11 @@
 .header{
     font-weight: bold;
     font-size: 150%;
+    font-family: 'HallymGothic-Regular';
 }
 
 .inner{
-    margin: 5% 20%;
+    margin: 5% 15%;
     
 }
 
@@ -24,6 +25,33 @@
 
 .finalButton{
     padding: 3%;
-    background-color: #10ac3c;
+    background-color: rgb(95, 190, 187);
     border-radius: 5%;
+    font-family: 'HallymGothic-Regular';
+    border-radius: 1em;
+}
+
+.remainder{
+    font-family: 'HallymGothic-Regular';
+}
+
+.outter{
+    border: 5px solid rgb(95, 190, 187);
+    background-color: white;
+    margin: 10% 10% 10% 10%;
+    padding-top: 12%;
+    padding-bottom: 5%;
+    border-radius: 2em;
+}
+
+.headerOut{
+    text-align: center;
+    padding-bottom: 5%;
+}
+
+@font-face {
+    font-family: 'HallymGothic-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
 }

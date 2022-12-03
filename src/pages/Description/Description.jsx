@@ -44,18 +44,18 @@ const Description = () => {
     }
 
     const okHandler = () => {
-        console.log()
-        if(checkedItems.includes("")){
-            navigate("/register")
+        if(checkedItems.includes("벼룩창고 이용약관 동의")){
+            if(checkedItems.includes("개인정보 수집 및 이용 동의")){
+                navigate("/register")
+            }
+            return;
         }
-        else{
-            return
-        }
+        return;
     }
 
 
     return (
-        <div>
+        <div className={style.outter}>
             <div className={style.header}>
                 <h1>약관 동의</h1>
             </div>

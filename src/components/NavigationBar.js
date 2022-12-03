@@ -13,7 +13,7 @@ const NavigationBar = ({name}) => {
       <div className={style.container}>
         <div className={style.top}>
           <img src={eco} alt="Eco" />
-          <span>플리마켓</span>
+          <span>벼룩창고</span>
           <div className={style.login}>
             {name === "" ? 
             <a href={`/login`}>

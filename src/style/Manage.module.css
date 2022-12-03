@@ -1,5 +1,6 @@
 .container {
-  height: calc(100vh - 6rem);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,7 +47,7 @@
   border: none;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-  background-color: #58b671;
+  background-color: rgb(95, 190, 187);
   color: white;
   font-weight: bolder;
 }
