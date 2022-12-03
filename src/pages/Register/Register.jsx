@@ -67,7 +67,7 @@ const Register = () => {
       setIsEmail(true);
     } else {
       if (regex.test(email) === false) {
-        setEmailMsg('정확한 이메일 형식으로 입력해주세요.');
+        setEmailMsg('정확한 형식으로 입력해주세요.');
         setIsEmail(true);
       } else {
         setEmailMsg('이메일 입력이 완료되었습니다.');
@@ -167,8 +167,8 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <div>
+    <div className={style.outter}>
+      <div className={style.headerOut}>
         <h1 className={style.header}>회원가입</h1>
       </div>
       <div className={style.inner}>
@@ -210,12 +210,14 @@ const Register = () => {
               type="button"
               value="중복 확인"
               onClick={emailDuplicateHandler}
+              className={style.remainder}
             />
           ) : (
             <input
               type="button"
               value="인증번호 받기"
               onClick={emailCheckHandler}
+              className={style.remainder}
             />
           )}
           <br />
@@ -230,7 +232,7 @@ const Register = () => {
             onClick={codeButtonHandler}
             className={style.combination}
           />
-          <input type="button" value="확인" />
+          <input type="button" value="확인" className={style.remainder}/>
           <br />
         </div>
         <span>{codeConfirmMsg}</span>

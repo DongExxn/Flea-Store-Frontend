@@ -1,0 +1,66 @@
+.outter{
+    border: 5px solid rgb(95, 190, 187);
+    background-color: white;
+    margin: 10% 10% 10% 10%;
+    padding-top: 17%;
+    padding-bottom: 35%;
+    border-radius: 2em;
+}
+
+.picOutter{
+    text-align: center;
+    padding-bottom: 2%;
+}
+
+.pic{
+    border: 1px solid black;
+    border-radius: 1em;
+    padding: 2% 2%;
+}
+
+.picInner{
+    padding-bottom: 2%;
+}
+
+.auth{
+    padding: 2% 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rity{
+    padding-right: 3%;
+}
+
+.inner{
+    padding: 4% 0;
+}
+
+label{
+    font-family: 'HallymGothic-Regular';
+}
+
+.bottom{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.buttonOut{
+    padding: 2% 2%;
+}
+
+.side{
+    font-family: 'HallymGothic-Regular';
+}
+
+.ok{
+    text-align: center;
+}
+
+@font-face {
+    font-family: 'HallymGothic-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}

@@ -21,7 +21,7 @@ const SingleDescription = ({name, detail, essential, checkedItems, checkedItemHa
     return (
         <div>
             <div>
-                <input type="checkbox" checked={isChecked} onChange={data => onCheck(data)}/>{name}
+                <input type="checkbox" checked={isChecked} onChange={data => onCheck(data)}/><span className={style.eachName}>{name}</span>
                 <span className={essential ? style.essential : style.optional}>{essential ? '(필수)' : '(선택)'}</span>
             </div>
             <div className={style.box}>
