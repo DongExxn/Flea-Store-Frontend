@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import style from '../../style/MyPage.module.css'
+import { useEffect } from 'react';
 
 const MyPage = ({user, settingName, setUser}) => {
     const [nick, setNick] = useState("")
     const [num, setNum] = useState("")
-    const [name, setName] = useState("")
     const [isPwd, setIsPwd] = useState(true)//비밀번호 변경 탭 뜨는거
     const [newPwd, setNewPwd] = useState("")//새로운 패스워드
     const [rePwd, setRePwd] = useState("")//패스워드 재확인
+    let nickTemp = '';
+    let numTemp = '';
 
     const pwdButtonHandler = () => {
         setIsPwd(!isPwd)
@@ -57,13 +59,45 @@ const MyPage = ({user, settingName, setUser}) => {
         setNum(event.target.value)
     }
 
-    const nameHandler = (event) => {
-        setName(event.target.value)
-    }
 
     const changeButtonHandler = () => {
-        if(name === '' && nick === '' && num === '')
+        if(nick === '' && num === '')
             alert("변경된 정보가 없습니다")
+
+        if(nick === ''){
+            console.log(user.nickName)
+            nickTemp = user.nickName
+        }
+        else{
+            nickTemp = nick
+            console.log(nickTemp)
+        }
+        if(num === ''){
+            console.log(user.phoneNumber)
+            numTemp = user.phoneNumber
+        }
+        else{
+            numTemp = num
+            console.log(numTemp)
+        }
+
+        axios.put('http://localhost:8080/user',{
+            "name": user.name,
+            "nickname": nickTemp,
+            "phoneNumber": numTemp
+        },{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+              }
+        })
+        .then(response => {
+            console.log(response)
+            alert('정보 변경!')
+            window.location.href = 'http://localhost:3000/MyPage'
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
 
     const onLevelUp = () => {
@@ -74,6 +108,7 @@ const MyPage = ({user, settingName, setUser}) => {
         localStorage.clear()
         settingName("")
         setUser([])
+        window.location.href = '/'
     }
 
     return (
@@ -92,7 +127,7 @@ const MyPage = ({user, settingName, setUser}) => {
                         'https://cdn-icons-png.flaticon.com/512/8227/8227755.png' : 'https://cdn-icons-png.flaticon.com/512/4856/4856934.png'}/>
                     </div>
                     <div>
-                        <input type="text" placeholder={user.name} onChange={nameHandler}/>
+                        <div className={style.inner}>{user.name}</div>
                     </div>
                     <div className={style.auth}>
                         {localStorage.getItem("authority") === 'ROLE_USER' ? <span className={style.rity}>회원</span> : <span>판매자</span>}
