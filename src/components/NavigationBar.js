@@ -6,17 +6,22 @@ import ShoppingBag from '../asset/img/ShoppingBag.svg';
 import Calender from '../asset/img/Calendar.svg';
 import Account from '../asset/img/Account.svg';
 
-const NavigationBar = () => {
+const NavigationBar = ({ name }) => {
+
   return (
     <>
       <div className={style.container}>
         <div className={style.top}>
           <img src={eco} alt="Eco" />
-          <span>플리마켓</span>
+          <span>벼룩창고</span>
           <div className={style.login}>
-            <a href={`/login`}>
-              <span>로그인</span>
-            </a>
+            {name === "" ?
+              <a href={`/login`}>
+                <span>로그인</span>
+              </a> :
+              <a href={'/MyPage'}>
+                <span>{name}님 안녕하세요!</span>
+              </a>}
           </div>
         </div>
         <div className={style.bottom}>
@@ -26,13 +31,13 @@ const NavigationBar = () => {
           <a href={`/favorite`}>
             <img src={Favorite} alt="Favorite" />
           </a>
-          <a href={`/markets`}>
+          <a href={`/store`}>
             <img src={ShoppingBag} alt="ShoppingBag" />
           </a>
-          <a href={`/ calender`}>
+          <a href={`/calender`}>
             <img src={Calender} alt="Calender" />
           </a>
-          <a href={`/ profile`}>
+          <a href={`/MyPage`}>
             <img src={Account} alt="Account" />
           </a>
         </div>

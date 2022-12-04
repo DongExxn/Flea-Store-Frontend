@@ -1,8 +1,9 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import style from '../../style/Description.module.css'
 
-const SingleDescription = ({name, detail, checkedItems, checkedItemHandeler}) => {
+const SingleDescription = ({name, detail, essential, checkedItems, checkedItemHandeler}) => {
     const [isChecked, setIsChecked] = useState(null)
 
     const onCheck = (data) => {
@@ -20,9 +21,10 @@ const SingleDescription = ({name, detail, checkedItems, checkedItemHandeler}) =>
     return (
         <div>
             <div>
-                <input type="checkbox" checked={isChecked} onChange={data => onCheck(data)}/>{name}
+                <input type="checkbox" checked={isChecked} onChange={data => onCheck(data)}/><span className={style.eachName}>{name}</span>
+                <span className={essential ? style.essential : style.optional}>{essential ? '(필수)' : '(선택)'}</span>
             </div>
-            <div>
+            <div className={style.box}>
                 {detail}
             </div>
         </div>

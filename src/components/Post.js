@@ -5,19 +5,13 @@ const Post = ({ post }) => {
     <>
       <div className={style.container}>
         <div className={style.wrapper}>
-          <div>
-            <div className={style.testImg}>img</div>
-            <div>
-              <span>{post.name}</span>
-            </div>
-            <div>
-              <span>{post.address}</span>
-            </div>
-            <div>
-              <span>{post.startDate}</span>
-              <span>~</span>
-              <span>{post.endDate}</span>
-            </div>
+          <img alt={post.info} src={post.image} />
+          <span className={style.title}>{post.name}</span>
+          <span className={style.address}>{post.address}</span>
+          <div className={style.date}>
+            <span>{post.startDate}</span>
+            <span>~</span>
+            <span>{post.endDate}</span>
           </div>
         </div>
       </div>
