@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Post from '../../components/Post';
 import style from '../../style/Favortie.module.css';
 import dummyData from '../Favorite/dummyData';
+import axios from 'axios';
 
 const MarketList = () => {
     const [posts, setPosts] = useState(dummyData);
