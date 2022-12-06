@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import style from '../../style/MyPage.module.css'
 import { useEffect } from 'react';
+import LevelUpModal from './levelUpModal';
 
 const MyPage = ({user, settingName, setUser}) => {
     const [nick, setNick] = useState("")
@@ -9,6 +10,7 @@ const MyPage = ({user, settingName, setUser}) => {
     const [isPwd, setIsPwd] = useState(true)//비밀번호 변경 탭 뜨는거
     const [newPwd, setNewPwd] = useState("")//새로운 패스워드
     const [rePwd, setRePwd] = useState("")//패스워드 재확인
+    const [show, setShow] = useState(false)//모달창 보이도록
     let nickTemp = '';
     let numTemp = '';
 
@@ -101,7 +103,7 @@ const MyPage = ({user, settingName, setUser}) => {
     }
 
     const onLevelUp = () => {
-        alert("heelo")
+        setShow(true)
     }
 
     const onLogOut = () => {
@@ -115,8 +117,10 @@ const MyPage = ({user, settingName, setUser}) => {
         <div className={style.outter}>
             {localStorage.getItem("accessToken") === null ? 
             <div>
-                <div>
+                <div className={style.noAccess}>
                     접근 권한이 없습니다.
+                    <br /><br />
+                    로그인 이후에 이용해주시기 바랍니다.
                 </div>
             </div>
             :
@@ -133,6 +137,7 @@ const MyPage = ({user, settingName, setUser}) => {
                         {localStorage.getItem("authority") === 'ROLE_USER' ? <span className={style.rity}>회원</span> : <span>판매자</span>}
                         {localStorage.getItem("authority") === 'ROLE_USER' ? 
                         <input type="button" value="권한 변경" onClick={onLevelUp} className={style.side}/> : <></>}
+                        {show ? <LevelUpModal setShow={setShow}/> : <></>}
                     </div>
                     <div>
                     <hr />

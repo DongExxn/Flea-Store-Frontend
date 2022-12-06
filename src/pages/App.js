@@ -5,7 +5,7 @@ import NavigationBar from '../components/NavigationBar';
 import Home from './Home/Home';
 import Login from './Login/Login';
 import Description from './Description/Description';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Register from './Register/Register';
 import MyPage from './Mypage/MyPage';
@@ -17,25 +17,28 @@ function App() {
   const [name, setName] = useState("");
   const [user, setUser] = useState([]);
 
+  useEffect(() => {
     const getName = () => {
-     if(localStorage.getItem('accessToken') !== null)
-     {
-      axios.get('http://localhost:8080/user', {
-       headers: {
-         Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-       }
-     })
-     .then(response => {
-       setName(response.data.data.name);
-       setUser(response.data.data)
-     })
-     .catch(error => {
-       console.log(error);
-     })
+      if(localStorage.getItem('accessToken') !== null)
+      {
+       axios.get('http://localhost:8080/user', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+      })
+      .then(response => {
+        setName(response.data.data.name);
+        setUser(response.data.data)
+      })
+      .catch(error => {
+        console.log(error);
+      })
+     }
     }
-   }
 
-   getName();
+    getName();
+  }, [])
+
 
   return (
     <>
