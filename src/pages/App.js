@@ -13,7 +13,7 @@ import Calender from './Calender';
 import Favorite from './Favorite';
 import Manage from './Manage';
 import MarketList from './MarketList/MarketList';
-import MarketEnroll from './MarketList/MarketEnroll';
+import MarketEnroll2 from './MarketList/MarketEnroll2';
 import Market from './Detail/Market';
 
 function App() {
@@ -53,7 +53,7 @@ function App() {
           <Route path="/Favorite" exact element={<Favorite />}></Route>
           <Route path="/Manage" exact element={<Manage />}></Route>
           <Route path="/store" exact element={<MarketList />}></Route>
-          <Route path="/enroll" exact element={<MarketEnroll />}></Route>
+          <Route path="/market" exact element={<MarketEnroll2 />}></Route>
           <Route path="/detail" exact element={<Market />}></Route>
         </Routes>
       </BrowserRouter>

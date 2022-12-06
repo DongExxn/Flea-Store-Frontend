@@ -3,7 +3,7 @@ import Description from './Description/Description.jsx';
 
 import Home from './Home/Home.js';
 import Login from './Login/Login.jsx';
-import MarketEnroll from './MarketList/MarketEnroll.js';
+import MarketEnroll2 from './MarketList/MarketEnroll2.jsx';
 import MyPage from './Mypage/MyPage.jsx';
 import Register from './Register/Register.jsx';
 import MarketList from './MarketList/MarketList.js';
@@ -32,8 +32,8 @@ const router = createBrowserRouter([
     element: <MyPage />
   },
   {
-    path: '/enroll',
-    element: <MarketEnroll />
+    path: '/market',
+    element: <MarketEnroll2 />
   },
   {
     path: '/store',
