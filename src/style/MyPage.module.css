@@ -58,6 +58,13 @@ label{
     text-align: center;
 }
 
+.noAccess{
+    padding-bottom: 150%;
+    font-family: 'HallymGothic-Regular';
+    font-size: 150%;
+    text-align: center;
+}
+
 @font-face {
     font-family: 'HallymGothic-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2') format('woff2');
