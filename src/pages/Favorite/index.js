@@ -1,10 +1,27 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import Post from '../../components/Post';
 import style from '../../style/Favortie.module.css';
-import dummyData from './dummyData';
 
-const Favorite = () => {
-  const [posts, setPosts] = useState(dummyData);
+const Favorite = ({ user }) => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const getPosts = () => {
+      axios
+        .get('http://localhost:8080/user/like-list', {
+          headers: {
+            Authorization: 'Bearer ' + user.token,
+          },
+        })
+        .then((result) => {
+          console.log(result.data.data);
+          return setPosts(result.data.data);
+        })
+        .catch((error) => console.error(error));
+    };
+    getPosts();
+  }, [user]);
 
   return (
     <div className={style.container}>
