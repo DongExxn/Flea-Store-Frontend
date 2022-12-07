@@ -1,39 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import style from '../../style/Home.module.css';
 import Post from '../../components/Post.js';
+import axios from 'axios';
 
 const Home = () => {
-  const [posts, setPosts] = useState([
-    {
-      name: '아이유 마켓',
-      address: '서울 특별시',
-      startDate: '2022/11/01',
-      endDate: '2022/11/30',
-      info: '아이유',
-      relateUrl: 'string',
-      image:
-        'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg',
-    },
-    {
-      name: 'string',
-      address: 'string',
-      startDate: '2022/11/01',
-      endDate: '2022/11/30',
-      info: '채원',
-      relateUrl: 'string',
-      image: 'https://img.gqkorea.co.kr/gq/2022/07/style_62da366deba2b.jpg',
-    },
-    {
-      name: 'string',
-      address: 'string',
-      startDate: '2022/11/01',
-      endDate: '2022/11/30',
-      info: '윈터',
-      relateUrl: 'string',
-      image: 'http://cdn.ggilbo.com/news/photo/202208/926599_758569_2224.jpg',
-    },
-  ]);
+  const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(1);
 
+  useEffect(() => {
+    const getPosts = () => {
+      axios
+        .get(`http://localhost:8080/market/list/?page=${0}`)
+        .then((result) =>
+          setPosts((prev) => {
+            console.log(result.data);
+            return [...prev, ...result.data.data];
+          })
+        )
+        .catch((error) => console.error(error));
+    };
+    getPosts();
+  }, [page]);
   return (
     <>
       <div className={style.container}>
