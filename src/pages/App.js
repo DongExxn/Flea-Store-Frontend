@@ -5,39 +5,41 @@ import NavigationBar from '../components/NavigationBar';
 import Home from './Home/Home';
 import Login from './Login/Login';
 import Description from './Description/Description';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Register from './Register/Register';
 import MyPage from './Mypage/MyPage';
 import Calender from './Calender';
 import Favorite from './Favorite';
 import Manage from './Manage';
-import MarketList from './MarketList/MarketList';
 import MarketEnroll2 from './MarketList/MarketEnroll2';
-import Market from './Detail/Market';
+import MarketList from './MarketList/MarketList';
 
 function App() {
   const [name, setName] = useState("");
   const [user, setUser] = useState([]);
 
-  const getName = () => {
-    if (localStorage.getItem('accessToken') !== null) {
-      axios.get('http://localhost:8080/user', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-        }
-      })
-        .then(response => {
-          setName(response.data.data.name);
-          setUser(response.data.data)
+  useEffect(() => {
+    const getName = () => {
+      if (localStorage.getItem('accessToken') !== null) {
+        axios.get('http://localhost:8080/user', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+          }
         })
-        .catch(error => {
-          console.log(error);
-        })
+          .then(response => {
+            setName(response.data.data.name);
+            setUser(response.data.data)
+          })
+          .catch(error => {
+            console.log(error);
+          })
+      }
     }
-  }
 
-  getName();
+    getName();
+  }, [])
+
 
   return (
     <>
@@ -54,7 +56,6 @@ function App() {
           <Route path="/Manage" exact element={<Manage />}></Route>
           <Route path="/store" exact element={<MarketList />}></Route>
           <Route path="/market" exact element={<MarketEnroll2 />}></Route>
-          <Route path="/detail" exact element={<Market />}></Route>
         </Routes>
       </BrowserRouter>
     </>

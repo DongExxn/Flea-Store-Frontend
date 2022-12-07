@@ -9,7 +9,6 @@ const Register = () => {
   const [name, setName] = useState('');
   const [nick, setNick] = useState('');
   const [email, setEmail] = useState('');
-  const [serverCode, setServerCode] = useState('');
   const [code, setCode] = useState('');
   const [pwd, setPwd] = useState('');
   const [pwdConfirm, setPwdConfirm] = useState('');
@@ -24,6 +23,7 @@ const Register = () => {
 
   const [isName, setIsName] = useState(true); //이름 입력 됐는지
   const [isNick, setIsNick] = useState(true); //닉네임 입력 됐는지
+  const [isNickOk, setIsNickOk] = useState(true); //닉네임 중복 되진 않았는지
   const [isButton, setIsButton] = useState(true); //가입하기와 상관 없음
   const [isEmail, setIsEmail] = useState(true);
   const [isCode, setIsCode] = useState(true);
@@ -58,6 +58,25 @@ const Register = () => {
     }
   };
 
+  const onNickButton = () => {
+    axios.post('http://localhost:8080/auth/users/nickname', {
+      "nickname": nick
+    })
+      .then(response => {
+        if (response.data.massage === '사용 가능한 닉네임입니다.') {
+          setNickMsg('사용 가능한 닉네임입니다.');
+          setIsNickOk(true);
+        }
+        else {
+          setNickMsg('다른 닉네임을 입력해주세요.')
+          setIsNickOk(false);
+        }
+      })
+      .catch(error => {
+
+      })
+  }
+
   const emailHandeler = (event) => {
     setEmail(event.target.value);
     let regex = new RegExp(`[a-z0-9]+@[a-z]+[.][a-z]`);
@@ -77,13 +96,34 @@ const Register = () => {
   };
 
   const emailDuplicateHandler = () => {
-    setIsButton(!isButton);
-    //api 사용해서 이메일 중복 여부 확인
+    axios.post('http://localhost:8080/auth/users/email', {
+      'email': email
+    })
+      .then(response => {
+        if (response.data.massage === '사용 가능한 이메일입니다.') {
+          setIsButton(!isButton);
+        }
+        else {
+          setEmailMsg('중복되는 이메일 주소입니다.');
+        }
+      })
+      .catch(error => {
+
+      })
   };
 
   const emailCheckHandler = () => {
-    setIsButton(!isButton);
-    //api 사용해서 이메일 인증 번호 전송
+    axios.post('http://localhost:8080/auth/users/send-email', {
+      'email': email
+    })
+      .then(response => {
+        if (response.data.result === 'success') {
+          setEmailMsg('인증번호 발송 완료');
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
   };
 
   const codeHandler = (event) => {
@@ -91,9 +131,21 @@ const Register = () => {
   };
 
   const codeButtonHandler = () => {
-    //이메일 인증 코드 확인
-    //같을 땐 ok alert
-    //다를 땐 인증번호 다르다고 alert
+    axios.post('http://localhost:8080/auth/users/auth-email', {
+      "code": code
+    })
+      .then(response => {
+        if (response.data.massage === '메일 인증에 성공했습니다.') {
+          setIsCode(false)
+        }
+        else {
+          alert('인증번호를 다시 입력하세요')
+          setIsCode(true)
+        }
+      })
+      .catch(error => {
+
+      })
   };
 
   const pwdHandeler = (event) => {
@@ -145,7 +197,7 @@ const Register = () => {
   const buttonHandler = () => {
     let url = 'http://localhost:8080/auth/user/signup';
 
-    if (isName && isNick && isCode && ispwd && isConfirm && isNum) {
+    if (isName && isNick && isNickOk && isCode && ispwd && isConfirm && isNum) {
       alert('모든 정보를 기입해주시기 바랍니다');
       return;
     } else {
@@ -158,7 +210,8 @@ const Register = () => {
           phoneNumber: num,
         })
         .then((response) => {
-          Navigate('/login');
+          alert('회원가입에 성공하셨습니다.')
+          window.location.href = '/'
         })
         .catch((error) => {
           console.log('post api error');
@@ -186,12 +239,15 @@ const Register = () => {
         <br />
         <span>닉네임</span>
         <br />
-        <input
-          type="text"
-          name="nick"
-          onChange={nickHandeler}
-          className={style.full}
-        ></input>
+        <div className={style.full}>
+          <input
+            type="text"
+            name="nick"
+            onChange={nickHandeler}
+            className={style.full}
+          ></input>
+          <input type="button" value="사용하기" onClick={onNickButton} disabled={isNick} />
+        </div>
         <br />
         <span>{nickMsg}</span>
         <br />
@@ -211,6 +267,7 @@ const Register = () => {
               value="중복 확인"
               onClick={emailDuplicateHandler}
               className={style.remainder}
+              disabled={isEmail}
             />
           ) : (
             <input
@@ -229,10 +286,9 @@ const Register = () => {
             type="text"
             placeholder="인증번호 입력하세요"
             onChange={codeHandler}
-            onClick={codeButtonHandler}
             className={style.combination}
           />
-          <input type="button" value="확인" className={style.remainder}/>
+          <input type="button" value="확인" onClick={codeButtonHandler} disabled={!isCode} className={style.remainder} />
           <br />
         </div>
         <span>{codeConfirmMsg}</span>
