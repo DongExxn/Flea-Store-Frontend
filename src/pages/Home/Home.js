@@ -5,21 +5,33 @@ import axios from 'axios';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     const getPosts = () => {
       axios
-        .get(`http://localhost:8080/market/list/?page=${0}`)
+        .get(`http://localhost:8080/market/list/?page=${page}`)
         .then((result) =>
           setPosts((prev) => {
-            console.log(result.data);
             return [...prev, ...result.data.data];
           })
         )
-        .catch((error) => console.error(error));
+        .catch((error) => {
+          return console.error(error);
+        });
+    };
+    const infiniteScroll = () => {
+      const { scrollHeight } = document.documentElement;
+      const { scrollTop } = document.documentElement;
+      const { clientHeight } = document.documentElement;
+
+      if (scrollTop >= scrollHeight - clientHeight) {
+        setPage((prev) => prev + 1);
+        window.removeEventListener('scroll', infiniteScroll);
+      }
     };
     getPosts();
+    window.addEventListener('scroll', infiniteScroll);
   }, [page]);
   return (
     <>
