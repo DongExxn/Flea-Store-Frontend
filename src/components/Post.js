@@ -1,7 +1,6 @@
 import style from '../style/Post.module.css';
 
 const Post = ({ post }) => {
-  console.log(post);
   return (
     <>
       <div className={style.container}>
