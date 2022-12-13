@@ -106,6 +106,10 @@ const MyPage = ({user, settingName, setUser}) => {
         setShow(true)
     }
 
+    const onLike = () => {
+        window.location.href = '/Favorite'
+    }
+
     const onLogOut = () => {
         localStorage.clear()
         settingName("")
@@ -171,7 +175,7 @@ const MyPage = ({user, settingName, setUser}) => {
                 </div>
                 <div className={style.bottom}>
                     <div className={style.buttonOut}>
-                        <input type="button" value="관심마켓" className={style.side}/>
+                        <input type="button" value="관심마켓" className={style.side} onClick={onLike}/>
                     </div>
                     <div className={style.buttonOut}>
                         <input type="button" value="정보 수정" onClick={changeButtonHandler} className={style.side}/>
