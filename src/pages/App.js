@@ -58,12 +58,26 @@ function App() {
         <NavigationBar name={name} />
         <Routes>
           <Route path="/" exact element={<Home />}></Route>
-          <Route path="/login" exact element={<Login setName={setName} setUser={setUser} />}></Route>
+          <Route
+            path="/login"
+            exact
+            element={<Login setName={setName} setUser={setUser} />}
+          ></Route>
           <Route path="/description" exact element={<Description />}></Route>
           <Route path="/Register" exact element={<Register />}></Route>
-          <Route path="/MyPage" exact element={<MyPage user={user} settingName={setName} setUser={setUser} />}></Route>
+          <Route
+            path="/MyPage"
+            exact
+            element={
+              <MyPage user={user} settingName={setName} setUser={setUser} />
+            }
+          ></Route>
           <Route path="/Calender" exact element={<Calender />}></Route>
-          <Route path="/Favorite" exact element={user.name ? <Favorite /> : <Navigate to={'/login'} />}></Route>
+          <Route
+            path="/Favorite"
+            exact
+            element={user.name ? <Favorite /> : <Navigate to={'/login'} />}
+          ></Route>
           <Route path="/Manage" exact element={<Manage />}></Route>
           <Route path="/store" exact element={<MarketList />}></Route>
           <Route path="/detail" exact element={<Market />}></Route>
@@ -104,7 +118,11 @@ function App() {
                 path="/Favorite"
                 exact
                 element={
-                  name ? <Favorite token={token} /> : <Navigate to={'/login'} />
+                  token ? (
+                    <Favorite token={token} />
+                  ) : (
+                    <Navigate to={'/login'} />
+                  )
                 }
               ></Route>
             </Routes>
