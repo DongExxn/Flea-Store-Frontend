@@ -86,7 +86,7 @@ function Market() {
                 <div className={styles.column_wrap}>
                     <div className={styles.column_is_fixed}>
                         <h1>마켓 설명</h1>
-                        {/* <h2>밤도깨비야시장은 매년 4월부터 10월말까지 금요일과 주말 저녁 시간에만 열리는 야시장이다. 현재는 여의도, 반포한강공원, DDP, 청계천, 문화비축기지(5월)에 열리고 있다. DDP 밤도깨비야시장의 매력은 상당부분 DDP에 기인한다.</h2> */}
+                        <h1> {data.info}</h1>
                     </div>
                     <div className={styles.column}>
                         {isLoad === false ? (
@@ -95,7 +95,7 @@ function Market() {
                             <section className={styles.box}>
                                 <h1 className={styles.title_1}>플리마켓</h1>
                                 <Divider />
-                                <h1 className={styles.title_2}>{data.name}</h1>
+                                <h1 className={styles.title_2}>이름: {data.name}</h1>
                                 <h1 className={styles.title}>
                                     지역: {data.address}{" "}
                                 </h1>
