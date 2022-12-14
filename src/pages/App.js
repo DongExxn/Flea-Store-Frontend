@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import '../style/init.css';
 
 import NavigationBar from '../components/NavigationBar';
@@ -17,9 +17,9 @@ import MarketList from './MarketList/MarketList';
 import Market from './Detail/Market';
 
 function App() {
-  const [name, setName] = useState("");
-  const [user, setUser] = useState([]);
-
+  const [name, setName] = useState('');
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const getName = () => {
       if (localStorage.getItem('accessToken') !== null) {
@@ -39,8 +39,7 @@ function App() {
     }
 
     getName();
-  }, [])
-
+  }, []);
 
   return (
     <>
@@ -53,11 +52,8 @@ function App() {
           <Route path="/Register" exact element={<Register />}></Route>
           <Route path="/MyPage" exact element={<MyPage user={user} settingName={setName} setUser={setUser} />}></Route>
           <Route path="/Calender" exact element={<Calender />}></Route>
-          <Route path="/Favorite" exact element={<Favorite />}></Route>
+          <Route path="/Favorite" exact element={user.name ? <Favorite /> : <Navigate to={'/login'} />}></Route>
           <Route path="/Manage" exact element={<Manage />}></Route>
-          <Route path="/store" exact element={<MarketList />}></Route>
-          <Route path="/market" exact element={<MarketEnroll2 />}></Route>
-          <Route path="/detail" exact element={<Market />}></Route>
         </Routes>
       </BrowserRouter>
     </>
