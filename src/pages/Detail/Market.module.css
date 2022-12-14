@@ -12,19 +12,19 @@
 
 .column {
     width: 50%;
-    background-color: rgb(225, 244, 242);
+    background-color: rgb(228, 240, 232);
     padding-left: 3.33%;
 
 }
 
 .map_area {
     height: 400px;
-    background-color: thistle;
+    background-color: rgb(242, 231, 242);
 }
 
 .others_area {
     height: 400px;
-    background-color: aquamarine;
+    background-color: rgb(213, 247, 236);
 }
 
 /* ㅇ */
@@ -80,16 +80,33 @@
     font-size: xx-large;
 }
 
+.title_5 {
+    text-align: left;
+    text-decoration: underline;
+    margin: 15px 10px;
+    font-size: xx-large;
+}
+
+.title_6 {
+    text-align: left;
+    font-size: large;
+    color: rgb(238, 125, 25);
+    margin: 15px 10px;
+}
+
 .title_2 {
     text-align: left;
     font-size: x-large;
     margin: 15px 0px;
+    display: flex;
+    flex-direction: column;
+    color: rgb(19, 48, 83);
 }
 
 .title_3 {
     text-align: left;
     font-size: large;
-    color: rgb(156, 166, 165)
+    color: rgb(238, 125, 25)
 }
 
 .title_4 {
@@ -97,9 +114,9 @@
 
 }
 
-.box {
+/* .box {
     width: 700px;
     height: 350px;
-    background-color: rgb(170, 212, 191);
-    border: 1px solid rgb(225, 244, 242);
-}
+    background-color: rgb(49, 204, 127);
+    border: 1px solid #34dbca;
+} */
