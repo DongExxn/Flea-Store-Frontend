@@ -16,6 +16,10 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Stack from '@mui/material/Stack';
+import style from '../../style/Favortie.module.css';
+import dummyData from '../Favorite/dummyData';
+import DetailPost from '../../components/DetailPost';
+
 
 
 const bull = (
@@ -77,7 +81,7 @@ function Market() {
             <section>
                 <div className={styles.column_wrap}>
                     <div className={styles.column_is_fixed}>
-                        <h1>마켓 사진들</h1>
+                        <h1>마켓 정보</h1>
                     </div>
                     <div className={styles.column}>
                         {isLoad === false ? (
@@ -126,6 +130,7 @@ function Market() {
                                 </div>
                             </section>
                         )}
+                        <Button variant="contained">관심마켓</Button>
                     </div>
                 </div>
             </section>

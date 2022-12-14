@@ -14,6 +14,7 @@ import Favorite from './Favorite';
 import Manage from './Manage';
 import MarketEnroll2 from './MarketList/MarketEnroll2';
 import MarketList from './MarketList/MarketList';
+import Market from './Detail/Market';
 
 function App() {
   const [name, setName] = useState("");
@@ -56,6 +57,7 @@ function App() {
           <Route path="/Manage" exact element={<Manage />}></Route>
           <Route path="/store" exact element={<MarketList />}></Route>
           <Route path="/market" exact element={<MarketEnroll2 />}></Route>
+          <Route path="/detail" exact element={<Market />}></Route>
         </Routes>
       </BrowserRouter>
     </>

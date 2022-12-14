@@ -4,6 +4,56 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import style from '../../style/MarketEnroll.module.css';
+import { useCallback, useRef, } from 'react';
+import { UploadOutlined } from '@ant-design/icons';
+import { Button, Tooltip, Upload } from 'antd';
+import update from 'immutability-helper';
+import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
+const type = 'DragableUploadList';
+const DragableUploadListItem = ({ originNode, moveRow, file, fileList }) => {
+    const ref = useRef(null);
+    const index = fileList.indexOf(file);
+    const [{ isOver, dropClassName }, drop] = useDrop({
+        accept: type,
+        collect: (monitor) => {
+            const { index: dragIndex } = monitor.getItem() || {};
+            if (dragIndex === index) {
+                return {};
+            }
+            return {
+                isOver: monitor.isOver(),
+                dropClassName: dragIndex < index ? ' drop-over-downward' : ' drop-over-upward',
+            };
+        },
+        drop: (item) => {
+            moveRow(item.index, index);
+        },
+    });
+    const [, drag] = useDrag({
+        type,
+        item: {
+            index,
+        },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+        }),
+    });
+    drop(drag(ref));
+    const errorNode = <Tooltip title="Upload Error">{originNode.props.children}</Tooltip>;
+    return (
+        <div
+            ref={ref}
+            className={`ant-upload-draggable-list-item ${isOver ? dropClassName : ''}`}
+            style={{
+                cursor: 'move',
+            }}
+        >
+            {file.status === 'error' ? errorNode : originNode}
+        </div>
+    );
+};
 
 const MarketEnroll2 = () => {
     const [name, setName] = useState(''); //마켓 이름
@@ -140,6 +190,37 @@ const MarketEnroll2 = () => {
         }
     };
 
+    const [fileList, setFileList] = useState([
+        {
+            uid: '-1',
+            name: 'image1.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+        {
+            uid: '-2',
+            name: 'image2.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+    ]);
+    const moveRow = useCallback(
+        (dragIndex, hoverIndex) => {
+            const dragRow = fileList[dragIndex];
+            setFileList(
+                update(fileList, {
+                    $splice: [
+                        [dragIndex, 1],
+                        [hoverIndex, 0, dragRow],
+                    ],
+                }),
+            );
+        },
+        [fileList],
+    );
+    const onChange = ({ fileList: newFileList }) => {
+        setFileList(newFileList);
+    };
     return (
         <div className={style.outter}>
             <div className={style.headerOut}>
@@ -216,6 +297,23 @@ const MarketEnroll2 = () => {
                 ></input>
                 <br />
                 <span>{numMsg}</span>
+                <DndProvider backend={HTML5Backend}>
+                    <Upload
+                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        fileList={fileList}
+                        onChange={onChange}
+                        itemRender={(originNode, file, currFileList) => (
+                            <DragableUploadListItem
+                                originNode={originNode}
+                                file={file}
+                                fileList={currFileList}
+                                moveRow={moveRow}
+                            />
+                        )}
+                    >
+                        <Button icon={<UploadOutlined />}>플리마켓 사진 업로드</Button>
+                    </Upload>
+                </DndProvider>
             </div>
             <div className={style.low}>
                 <hr />
