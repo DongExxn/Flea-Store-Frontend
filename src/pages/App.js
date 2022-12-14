@@ -17,6 +17,7 @@ function App() {
   const [name, setName] = useState('');
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const getName = () => {
       if (localStorage.getItem('accessToken') !== null) {

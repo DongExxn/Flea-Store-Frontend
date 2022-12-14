@@ -138,7 +138,7 @@ const MyPage = ({user, settingName, setUser}) => {
                         <div className={style.inner}>{user.name}</div>
                     </div>
                     <div className={style.auth}>
-                        {localStorage.getItem("authority") === 'ROLE_USER' ? <span className={style.rity}>회원</span> : <span>판매자</span>}
+                        {localStorage.getItem("authority") === 'ROLE_USER' ? <span className={style.rity}>회원</span> : localStorage.getItem("authority") === 'ROLE_OWNER' ? <span>판매자</span> :<span>관리자</span>}
                         {localStorage.getItem("authority") === 'ROLE_USER' ? 
                         <input type="button" value="권한 변경" onClick={onLevelUp} className={style.side}/> : <></>}
                         {show ? <LevelUpModal setShow={setShow}/> : <></>}
@@ -182,9 +182,6 @@ const MyPage = ({user, settingName, setUser}) => {
                     </div>
                     <div className={style.buttonOut}>
                         <input type="button" value="로그아웃" onClick={onLogOut} className={style.side}/>
-                    </div>
-                    <div className={style.buttonOut}>
-                        <input type="button" value="회원탈퇴" className={style.side}/>
                     </div>
                 </div>
             </div>
