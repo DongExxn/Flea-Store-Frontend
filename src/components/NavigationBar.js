@@ -6,7 +6,7 @@ import ShoppingBag from '../asset/img/ShoppingBag.svg';
 import Calender from '../asset/img/Calendar.svg';
 import Account from '../asset/img/Account.svg';
 
-const NavigationBar = ({name}) => {
+const NavigationBar = ({ name }) => {
 
   return (
     <>
@@ -15,13 +15,13 @@ const NavigationBar = ({name}) => {
           <img src={eco} alt="Eco" />
           <span>벼룩창고</span>
           <div className={style.login}>
-            {name === "" ? 
-            <a href={`/login`}>
-              <span>로그인</span>
-            </a> : 
-            <a href={'/MyPage'}>
-              <span>{name}님 안녕하세요!</span>
-            </a>}
+            {name === "" ?
+              <a href={`/login`}>
+                <span>로그인</span>
+              </a> :
+              <a href={'/MyPage'}>
+                <span>{name}님 안녕하세요!</span>
+              </a>}
           </div>
         </div>
         <div className={style.bottom}>

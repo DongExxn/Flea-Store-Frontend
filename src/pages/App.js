@@ -12,6 +12,9 @@ import MyPage from './Mypage/MyPage';
 import Calender from './Calender';
 import Favorite from './Favorite';
 import Manage from './Manage';
+import MarketEnroll2 from './MarketList/MarketEnroll2';
+import MarketList from './MarketList/MarketList';
+import Market from './Detail/Market';
 
 function App() {
   const [name, setName] = useState('');
@@ -21,67 +24,39 @@ function App() {
   useEffect(() => {
     const getName = () => {
       if (localStorage.getItem('accessToken') !== null) {
-        axios
-          .get('http://localhost:8080/user', {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            },
-          })
-          .then((response) => {
+        axios.get('http://localhost:8080/user', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+          }
+        })
+          .then(response => {
             setName(response.data.data.name);
-            setUser({
-              ...response.data.data,
-              token: localStorage.getItem('accessToken'),
-            });
-            setLoading(false);
+            setUser(response.data.data)
           })
-          .catch((error) => {
+          .catch(error => {
             console.log(error);
-          });
-      } else {
-        setLoading(false);
+          })
       }
-    };
+    }
+
     getName();
   }, []);
 
   return (
     <>
-      {!loading && (
-        <BrowserRouter>
-          <NavigationBar name={name} />
-          <Routes>
-            <Route path="/" exact element={<Home />}></Route>
-            <Route
-              path="/login"
-              exact
-              element={<Login setName={setName} setUser={setUser} />}
-            ></Route>
-            <Route path="/description" exact element={<Description />}></Route>
-            <Route path="/Register" exact element={<Register />}></Route>
-            <Route
-              path="/MyPage"
-              exact
-              element={
-                <MyPage user={user} settingName={setName} setUser={setUser} />
-              }
-            ></Route>
-            <Route path="/Calender" exact element={<Calender />}></Route>
-            <Route
-              path="/Favorite"
-              exact
-              element={
-                Object.keys(user).length !== 0 ? (
-                  <Favorite user={user} />
-                ) : (
-                  <Navigate to={'/login'} replace={true} />
-                )
-              }
-            ></Route>
-            <Route path="/Manage" exact element={<Manage />}></Route>
-          </Routes>
-        </BrowserRouter>
-      )}
+      <BrowserRouter>
+        <NavigationBar name={name} />
+        <Routes>
+          <Route path="/" exact element={<Home />}></Route>
+          <Route path="/login" exact element={<Login setName={setName} setUser={setUser} />}></Route>
+          <Route path="/description" exact element={<Description />}></Route>
+          <Route path="/Register" exact element={<Register />}></Route>
+          <Route path="/MyPage" exact element={<MyPage user={user} settingName={setName} setUser={setUser} />}></Route>
+          <Route path="/Calender" exact element={<Calender />}></Route>
+          <Route path="/Favorite" exact element={user.name ? <Favorite /> : <Navigate to={'/login'} />}></Route>
+          <Route path="/Manage" exact element={<Manage />}></Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
