@@ -56,32 +56,37 @@ function Market() {
     const [data, setData] = useState([]);
     const [isLoad, setIsLoad] = useState(false);
 
-    // useEffect(() => {
-    //     console.log(id);
-    //     axios
-    //         .get(`/markets/${id}`)
-    //         .then((res) => {
-    //             setData(res.data);
-    //             console.log(res);
-    //             setIsLoad(true);
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //             alert("존재하지 않는 페이지 입니다.");
-    //             navigate("/", { replace: true });
-    //         });
-    // }, []);
+    useEffect(() => {
+        //console.log(id);
+        axios
+            .get(`http://localhost:8080/market?marketId=2`)
+            .then((res) => {
+                console.log(res);
+                setData(res.data.data);
+                setIsLoad(true);
+            })
+            .catch(function (error) {
+                console.log(error);
+                alert("존재하지 않는 페이지 입니다.");
+                // navigate("/", { replace: true });
+            });
+    }, []);
+
+    // console.log(data?.data?.adress)
 
     return (
+
         <div className="area-3">
             <h1>마켓상세페이지</h1>
             <section className={styles.map_area}>
                 <h1>마켓 사진</h1>
+                <img src={data.existingImages} alt="logo" />
             </section>
             <section>
                 <div className={styles.column_wrap}>
                     <div className={styles.column_is_fixed}>
-                        <h1>마켓 정보</h1>
+                        <h1>마켓 설명</h1>
+                        <h1> {data.info}</h1>
                     </div>
                     <div className={styles.column}>
                         {isLoad === false ? (
@@ -90,31 +95,19 @@ function Market() {
                             <section className={styles.box}>
                                 <h1 className={styles.title_1}>플리마켓</h1>
                                 <Divider />
-                                <h1 className={styles.title_2}>{data.name}</h1>
+                                <h1 className={styles.title_2}>이름: {data.name}</h1>
                                 <h1 className={styles.title}>
-                                    지역: {data.address.sido}{" "}
-                                    {data.address.sigungu}
+                                    지역: {data.address}{" "}
                                 </h1>
-                                <h1 className={styles.title_3}>상세위치: {data.address.detailAddress}</h1>
                                 <h1 className={styles.title}>
-                                    시간: {data.openTime.slice(0, 5)} ~
-                                    {data.closeTime.slice(0, 5)}
+                                    시간: {data.startDate}~
+                                    {data.endDate}
                                 </h1>
-
-                                <h1 className={styles.title}>
-                                    운영기간:
-                                    {new Date(data.startDate).getFullYear()}.
-                                    {new Date(data.startDate).getMonth() + 1}.
-                                    {new Date(data.startDate).getDate()} ~
-                                    {new Date(data.endDate).getFullYear()}.
-                                    {new Date(data.endDate).getMonth() + 1}.
-                                    {new Date(data.endDate).getDate()}
-                                </h1>
-                                {/* <div className={styles.title}>관심마켓 {data.interestCount}</div> */}
-                                <Button className={styles.title_4} variant="contained">관심마켓 {data.interestCount}</Button>
+                                {/* <div className={styles.title}>관심마켓 {data?.interestCount}</div> */}
+                                <Button className={styles.title_4} variant="contained">관심마켓 {data?.interestCount}</Button>
                             </section>
                         )}
-                        <h1 className={styles.title_1}>부스 목록</h1>
+                        {/* <h1 className={styles.title_1}>부스 목록</h1> */}
                         {isLoad === false ? (
                             <p>로딩중...</p>
                         ) : (
@@ -134,11 +127,6 @@ function Market() {
                     </div>
                 </div>
             </section>
-            {/* <section>
-                <div className={styles.others_area}>
-                    <h1>ㅇㅇ 지역의 다른 마켓 둘러보기</h1>
-                </div>
-            </section> */}
         </div>
     );
 }
