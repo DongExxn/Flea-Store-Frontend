@@ -1,24 +1,35 @@
-import { useState } from 'react';
-import Post from '../../components/Post';
+//마켓상세페이지
+
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+import axios from "axios";
+
+import styles from "./Market.module.css";
+
+import { DataGrid } from "@mui/x-data-grid";
+import Divider from "@mui/material/Divider";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Stack from '@mui/material/Stack';
 import style from '../../style/Favortie.module.css';
 import dummyData from '../Favorite/dummyData';
-import axios from 'axios';
-import { Route } from 'react-router-dom';
-import { Outlet, Link } from "react-router-dom";
-import { useEffect } from 'react';
+import DetailPost from '../../components/DetailPost';
 
-const MarketList = () => {
+
+
+function Market() {
     const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(0);
-
-    function Detail() {
-        console.log("Clicked");
-    }
 
     useEffect(() => {
         const getPosts = () => {
             axios
-                .get(`http://localhost:8080/market/list/?page=${page}`)
+                .get(`http://localhost:8080/market?marketId=2`)
                 .then((result) =>
                     setPosts((prev) => {
                         return [...prev, ...result.data.data];
@@ -42,18 +53,18 @@ const MarketList = () => {
         window.addEventListener('scroll', infiniteScroll);
     }, [page]);
 
-
     return (
-        <div onClick={Detail} className={style.container}>
-            <div className={style.wrapper}>
-                {posts?.map((post, index) => (
-                    <div key={index} className={style.card}>
-                        <Post post={post} />
-                    </div>
-                ))}
+        <>
+            <div className={style.container}>
+                <div className={style.wrapper}>
+                    {posts?.map((post, index) => (
+                        <div key={index} className={style.card}>
+                        </div>
+                    ))}
+                </div>
             </div>
-        </div>
+        </>
     );
-};
+}
 
-export default MarketList;
+export default Market;

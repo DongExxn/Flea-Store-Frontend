@@ -54,6 +54,8 @@ function App() {
           <Route path="/Calender" exact element={<Calender />}></Route>
           <Route path="/Favorite" exact element={user.name ? <Favorite /> : <Navigate to={'/login'} />}></Route>
           <Route path="/Manage" exact element={<Manage />}></Route>
+          <Route path="/store" exact element={<MarketList />}></Route>
+          <Route path="/detail" exact element={<Market />}></Route>
         </Routes>
       </BrowserRouter>
     </>
