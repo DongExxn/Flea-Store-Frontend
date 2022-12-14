@@ -58,23 +58,23 @@ const Register = () => {
     }
   };
 
-  const onNickButton = () =>{
-    axios.post('http://localhost:8080/auth/users/nickname',{
+  const onNickButton = () => {
+    axios.post('http://localhost:8080/auth/users/nickname', {
       "nickname": nick
     })
-    .then(response => {
-      if(response.data.massage === '사용 가능한 닉네임입니다.'){
-        setNickMsg('사용 가능한 닉네임입니다.');
-        setIsNickOk(true);
-      }
-      else{
-        setNickMsg('다른 닉네임을 입력해주세요.')
-        setIsNickOk(false);
-      }
-    })
-    .catch(error => {
+      .then(response => {
+        if (response.data.massage === '사용 가능한 닉네임입니다.') {
+          setNickMsg('사용 가능한 닉네임입니다.');
+          setIsNickOk(true);
+        }
+        else {
+          setNickMsg('다른 닉네임을 입력해주세요.')
+          setIsNickOk(false);
+        }
+      })
+      .catch(error => {
 
-    })
+      })
   }
 
   const emailHandeler = (event) => {
@@ -96,34 +96,34 @@ const Register = () => {
   };
 
   const emailDuplicateHandler = () => {
-    axios.post('http://localhost:8080/auth/users/email',{
+    axios.post('http://localhost:8080/auth/users/email', {
       'email': email
     })
-    .then(response => {
-      if(response.data.massage === '사용 가능한 이메일입니다.'){
-        setIsButton(!isButton);
-      }
-      else{
-        setEmailMsg('중복되는 이메일 주소입니다.');
-      }
-    })
-    .catch(error => {
-        console.log(error)
-    })
+      .then(response => {
+        if (response.data.massage === '사용 가능한 이메일입니다.') {
+          setIsButton(!isButton);
+        }
+        else {
+          setEmailMsg('중복되는 이메일 주소입니다.');
+        }
+      })
+      .catch(error => {
+
+      })
   };
 
   const emailCheckHandler = () => {
-    axios.post('http://localhost:8080/auth/users/send-email',{
-          'email': email
-        })
-        .then(response => {
-          if(response.data.result === 'success'){
-            setEmailMsg('인증번호 발송 완료');
-          }
-        })
-        .catch(error => {
-          console.log(error)
-        })
+    axios.post('http://localhost:8080/auth/users/send-email', {
+      'email': email
+    })
+      .then(response => {
+        if (response.data.result === 'success') {
+          setEmailMsg('인증번호 발송 완료');
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
   };
 
   const codeHandler = (event) => {
@@ -131,21 +131,21 @@ const Register = () => {
   };
 
   const codeButtonHandler = () => {
-    axios.post('http://localhost:8080/auth/users/auth-email',{
+    axios.post('http://localhost:8080/auth/users/auth-email', {
       "code": code
     })
-    .then(response => {
-      if(response.data.massage === '메일 인증에 성공했습니다.'){
-        setIsCode(false)
-      }
-      else{
-        alert('인증번호를 다시 입력하세요')
-        setIsCode(true)
-      }
-    })
-    .catch(error => {
+      .then(response => {
+        if (response.data.massage === '메일 인증에 성공했습니다.') {
+          setIsCode(false)
+        }
+        else {
+          alert('인증번호를 다시 입력하세요')
+          setIsCode(true)
+        }
+      })
+      .catch(error => {
 
-    })
+      })
   };
 
   const pwdHandeler = (event) => {
@@ -246,8 +246,8 @@ const Register = () => {
             onChange={nickHandeler}
             className={style.full}
           ></input>
-          <input type="button" value="사용하기" onClick={onNickButton} disabled={isNick}/>
-        </div> 
+          <input type="button" value="사용하기" onClick={onNickButton} disabled={isNick} />
+        </div>
         <br />
         <span>{nickMsg}</span>
         <br />
@@ -267,7 +267,7 @@ const Register = () => {
               value="중복 확인"
               onClick={emailDuplicateHandler}
               className={style.remainder}
-              disabled = {isEmail}
+              disabled={isEmail}
             />
           ) : (
             <input
@@ -288,7 +288,7 @@ const Register = () => {
             onChange={codeHandler}
             className={style.combination}
           />
-          <input type="button" value="확인" onClick={codeButtonHandler} disabled={!isCode} className={style.remainder}/>
+          <input type="button" value="확인" onClick={codeButtonHandler} disabled={!isCode} className={style.remainder} />
           <br />
         </div>
         <span>{codeConfirmMsg}</span>
