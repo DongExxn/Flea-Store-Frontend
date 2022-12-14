@@ -19,3 +19,12 @@
     color: rgb(95, 190, 187);
     padding: 5% 0;
 }
+
+.test{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.year{
+    width: 15%
+}

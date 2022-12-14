@@ -119,12 +119,29 @@ const MyPage = ({ user, settingName, setUser }) => {
 
     return (
         <div className={style.outter}>
-            {localStorage.getItem("accessToken") === null ?
-                <div>
-                    <div className={style.noAccess}>
-                        접근 권한이 없습니다.
-                        <br /><br />
-                        로그인 이후에 이용해주시기 바랍니다.
+            {localStorage.getItem("accessToken") === null ? 
+            <div>
+                <div className={style.noAccess}>
+                    접근 권한이 없습니다.
+                    <br /><br />
+                    로그인 이후에 이용해주시기 바랍니다.
+                </div>
+            </div>
+            :
+            <div>
+                <div className={style.picOutter}>
+                    <div className={style.picInner}>
+                        <img className={style.pic} src={localStorage.getItem("authority") === 'ROLE_USER' ?
+                        'https://cdn-icons-png.flaticon.com/512/8227/8227755.png' : 'https://cdn-icons-png.flaticon.com/512/4856/4856934.png'}/>
+                    </div>
+                    <div>
+                        <div className={style.inner}>{user.name}</div>
+                    </div>
+                    <div className={style.auth}>
+                        {localStorage.getItem("authority") === 'ROLE_USER' ? <span className={style.rity}>회원</span> : localStorage.getItem("authority") === 'ROLE_OWNER' ? <span>판매자</span> :<span>관리자</span>}
+                        {localStorage.getItem("authority") === 'ROLE_USER' ? 
+                        <input type="button" value="권한 변경" onClick={onLevelUp} className={style.side}/> : <></>}
+                        {show ? <LevelUpModal setShow={setShow}/> : <></>}
                     </div>
                 </div>
                 :
