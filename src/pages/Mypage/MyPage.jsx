@@ -106,6 +106,10 @@ const MyPage = ({ user, settingName, setUser }) => {
         setShow(true)
     }
 
+    const onLike = () => {
+        window.location.href = '/Favorite'
+    }
+
     const onLogOut = () => {
         localStorage.clear()
         settingName("")
