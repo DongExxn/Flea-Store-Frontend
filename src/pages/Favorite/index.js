@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Post from '../../components/Post';
 import style from '../../style/Favortie.module.css';
 
-const Favorite = ({ user }) => {
+const Favorite = ({ token }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ const Favorite = ({ user }) => {
       axios
         .get('http://localhost:8080/user/like-list', {
           headers: {
-            Authorization: 'Bearer ' + user.token,
+            Authorization: 'Bearer ' + token,
           },
         })
         .then((result) => {
@@ -21,7 +21,7 @@ const Favorite = ({ user }) => {
         .catch((error) => console.error(error));
     };
     getPosts();
-  }, [user]);
+  }, [token]);
 
   return (
     <div className={style.container}>
