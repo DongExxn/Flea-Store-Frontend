@@ -55,43 +55,53 @@ function App() {
     <>
       <BrowserRouter>
         <NavigationBar name={name} />
-        <Routes>
-          <Route
-            path="/"
-            exact
-            element={
-              user.authority === 'ROLE_ADMIN' ? <Manage /> : <Home />
-            }
-          ></Route>
-          <Route
-            path="/login"
-            exact
-            element={<Login setName={setName} setUser={setUser} />}
-          ></Route>
-          <Route
-            path="/description"
-            exact
-            element={<Description />}
-          ></Route>
-          <Route path="/Register" exact element={<Register />}></Route>
-          <Route path="/store" exact element={<MarketList />}></Route>
-          <Route path="/detail" exact element={<Market />}></Route>
-          <Route
-            path="/MyPage"
-            exact
-            element={
-              <MyPage user={user} settingName={setName} setUser={setUser} />
-            }
-          ></Route>
-          <Route path="/Calender" exact element={<Calender />}></Route>
-          <Route
-            path="/Favorite"
-            exact
-            element={
-              name ? <Favorite token={token} /> : <Navigate to={'/login'} />
-            }
-          ></Route>
-        </Routes>
+        {loading ? (
+          <h1>로딩중...</h1>
+        ) : (
+          <>
+            <Routes>
+              <Route
+                path="/"
+                exact
+                element={
+                  user.authority === 'ROLE_ADMIN' ? <Manage /> : <Home />
+                }
+              ></Route>
+              <Route
+                path="/login"
+                exact
+                element={<Login setName={setName} setUser={setUser} />}
+              ></Route>
+              <Route
+                path="/description"
+                exact
+                element={<Description />}
+              ></Route>
+              <Route path="/Register" exact element={<Register />}></Route>
+              <Route path="/store" exact element={<MarketList />}></Route>
+              <Route path="/detail/:id" exact element={<Market />}></Route>
+              <Route
+                path="/MyPage"
+                exact
+                element={
+                  <MyPage user={user} settingName={setName} setUser={setUser} />
+                }
+              ></Route>
+              <Route path="/Calender" exact element={<Calender />}></Route>
+              <Route
+                path="/Favorite"
+                exact
+                element={
+                  token ? (
+                    <Favorite token={token} />
+                  ) : (
+                    <Navigate to={'/login'} />
+                  )
+                }
+              ></Route>
+            </Routes>
+          </>
+        )}
       </BrowserRouter>
     </>
   );
