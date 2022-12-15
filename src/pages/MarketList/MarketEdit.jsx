@@ -55,7 +55,7 @@ const DragableUploadListItem = ({ originNode, moveRow, file, fileList }) => {
     );
 };
 
-const MarketEnroll2 = () => {
+const MarketEdit = () => {
     const [name, setName] = useState(''); //마켓 이름
     const [nick, setNick] = useState('');  //마켓 설명
     const [email, setEmail] = useState(''); //마켓 주소
@@ -328,4 +328,4 @@ const MarketEnroll2 = () => {
     );
 };
 
-export default MarketEnroll2;
+export default MarketEdit;

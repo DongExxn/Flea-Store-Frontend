@@ -22,39 +22,15 @@ import DetailPost from '../../components/DetailPost';
 
 
 
-const bull = (
-    <Box
-        component="span"
-        sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-    >
-        •
-    </Box>
-);
-
-const columns = [
-    { field: "id", headerName: "번호", width: 70 },
-    { field: "Name", headerName: "부스 이름", width: 300 },
-    { field: "Subject", headerName: "부스 품목", width: 300 },
-];
-
-const rows = [
-    { id: 1, Subject: "Snow", Name: "Jon", age: 35 },
-    { id: 2, Subject: "Lannister", Name: "Cersei", age: 42 },
-    { id: 3, Subject: "Lannister", Name: "Jaime", age: 45 },
-    { id: 4, Subject: "Stark", Name: "Arya", age: 16 },
-    { id: 5, Subject: "Targaryen", Name: "Daenerys", age: null },
-    { id: 6, Subject: "Melisandre", Name: null, age: 150 },
-    { id: 7, Subject: "Clifford", Name: "Ferrara", age: 44 },
-    { id: 8, Subject: "Frances", Name: "Rossini", age: 36 },
-    { id: 9, Subject: "Roxie", Name: "Harvey", age: 65 },
-];
-
-
 function Market() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [isLoad, setIsLoad] = useState(false);
+
+    function Good() {
+        console.log("Good")
+    }
 
     useEffect(() => {
         //console.log(id);
@@ -77,7 +53,6 @@ function Market() {
     return (
 
         <div className="area-3">
-            <h1>마켓상세페이지</h1>
             <section className={styles.map_area}>
                 <h1>마켓 사진</h1>
                 <img src={data.existingImages} alt="logo" />
@@ -85,8 +60,8 @@ function Market() {
             <section>
                 <div className={styles.column_wrap}>
                     <div className={styles.column_is_fixed}>
-                        <h1>마켓 설명</h1>
-                        <h1> {data.info}</h1>
+                        <h1 className={styles.title_5}>마켓 소개</h1>
+                        <h1 className={styles.title_6}> {data.info}</h1>
                     </div>
                     <div className={styles.column}>
                         {isLoad === false ? (
@@ -94,17 +69,18 @@ function Market() {
                         ) : (
                             <section className={styles.box}>
                                 <h1 className={styles.title_1}>플리마켓</h1>
-                                <Divider />
-                                <h1 className={styles.title_2}>이름: {data.name}</h1>
-                                <h1 className={styles.title}>
-                                    지역: {data.address}{" "}
+                                <h1 className={styles.title_2}>이름 : {data.name}</h1>
+                                <h1 className={styles.title_2}>
+                                    위치 : {data.address}{" "}
                                 </h1>
-                                <h1 className={styles.title}>
-                                    시간: {data.startDate}~
-                                    {data.endDate}
+                                <h1 className={styles.title_2}>
+                                    기간 : {data.startDate}~{data.endDate}
+                                </h1>
+                                <h1 className={styles.title_2}>
+                                    SNS : {data.relatedUrl}
                                 </h1>
                                 {/* <div className={styles.title}>관심마켓 {data?.interestCount}</div> */}
-                                <Button className={styles.title_4} variant="contained">관심마켓 {data?.interestCount}</Button>
+                                <Button className={styles.title_4} variant="contained" onClick={Good}>관심마켓 {data?.interestCount}</Button>
                             </section>
                         )}
                         {/* <h1 className={styles.title_1}>부스 목록</h1> */}
@@ -112,7 +88,7 @@ function Market() {
                             <p>로딩중...</p>
                         ) : (
                             <section>
-                                <div style={{ height: 400, width: "95%" }}>
+                                {/* <div style={{ height: 400, width: "95%" }}>
                                     <DataGrid
                                         rows={rows}
                                         columns={columns}
@@ -120,10 +96,9 @@ function Market() {
                                         rowsPerPageOptions={[5]}
                                     />
 
-                                </div>
+                                </div> */}
                             </section>
                         )}
-                        <Button variant="contained">관심마켓</Button>
                     </div>
                 </div>
             </section>

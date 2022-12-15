@@ -7,12 +7,14 @@ import { Route } from 'react-router-dom';
 import { Outlet, Link } from "react-router-dom";
 import { useEffect } from 'react';
 
+
 const MarketList = () => {
     const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(0);
 
     function Detail() {
-        console.log("Clicked");
+        // document.location.href('/detail')
+        console.log("test")
     }
 
     useEffect(() => {

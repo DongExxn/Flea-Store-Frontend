@@ -12,9 +12,8 @@ import MyPage from './Mypage/MyPage';
 import Calender from './Calender';
 import Favorite from './Favorite';
 import Manage from './Manage';
-import MarketEnroll2 from './MarketList/MarketEnroll2';
-import MarketList from './MarketList/MarketList';
-import Market from './Detail/Market';
+import MarketList from './MarketList/MarketList'; //목록페이지
+import Market from './Detail/Market'; //상세조회페이지
 
 function App() {
   const [name, setName] = useState('');
@@ -55,11 +54,11 @@ function App() {
   return (
     <>
       <BrowserRouter>
+        <NavigationBar name={name} />
         {loading ? (
-          <h1>hi</h1>
+          <h1>로딩중...</h1>
         ) : (
           <>
-            <NavigationBar name={name} />
             <Routes>
               <Route
                 path="/"
@@ -79,6 +78,8 @@ function App() {
                 element={<Description />}
               ></Route>
               <Route path="/Register" exact element={<Register />}></Route>
+              <Route path="/store" exact element={<MarketList />}></Route>
+              <Route path="/detail/:id" exact element={<Market />}></Route>
               <Route
                 path="/MyPage"
                 exact
